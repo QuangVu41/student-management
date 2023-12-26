@@ -1,0 +1,27 @@
+@use "../abstracts";
+
+.search-bar {
+    align-items: center;
+    height: 50px;
+    background: var(--search-bar-bg);
+    border-radius: 10px;
+
+    &__input {
+        height: 100%;
+        flex: 1;
+        padding-left: 15px;
+        font-size: 1.6rem;
+        font-weight: 500;
+        line-height: 1.43; /* 142.857% */
+
+        &::placeholder {
+            color: #9e9da8;
+            font-weight: 400;
+        }
+    }
+
+    &__submit {
+        height: 100%;
+        padding: 0 15px;
+    }
+}

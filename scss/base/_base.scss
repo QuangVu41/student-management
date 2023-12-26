@@ -1,0 +1,99 @@
+@use '../abstracts';
+
+*,
+::before,
+::after {
+    box-sizing: border-box;
+}
+
+* {
+    -webkit-tap-highlight-color: transparent;
+}
+
+html {
+    font-size: 62.5%;
+}
+
+body {
+    font-size: 1.6rem;
+    font-family: 'Lato', sans-serif;
+    color: var(--text-color);
+    background: var(--body-bg-color);
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+button {
+    border: none;
+    outline: none;
+    background: transparent;
+    cursor: pointer;
+}
+
+input,
+textarea {
+    background: transparent;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active,
+input:-webkit-autofill:hover {
+    transition: background-color 1s 9999s;
+    -webkit-text-fill-color: var(--text-color);
+    caret-color: var(--text-color);
+}
+
+a,
+img,
+label,
+input,
+button,
+textarea,
+select {
+    padding: 0;
+    font-family: inherit;
+    color: inherit;
+    font-size: inherit;
+    outline: none;
+    border: none;
+}
+
+i,
+em {
+    font-style: italic;
+}
+
+b,
+strong {
+    font-weight: 600;
+}
+
+.separate {
+    margin: var(--margin) 0;
+    height: 1px;
+    background: var(--separate-color);
+}
+
+.icon {
+    filter: var(--icon-color);
+
+    &--green {
+        filter: brightness(0) saturate(100%) invert(69%) sepia(97%) saturate(466%) hue-rotate(66deg) brightness(98%)
+            contrast(92%);
+    }
+}
+
+.main-logo {
+    filter: brightness(0) saturate(100%) invert(82%) sepia(26%) saturate(681%) hue-rotate(137deg) brightness(97%)
+        contrast(86%);
+}
+
+.container {
+    @include abstracts.screen(sm) {
+        --grid-gutter-x: 40px !important;
+    }
+}
