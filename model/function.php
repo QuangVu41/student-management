@@ -80,7 +80,43 @@ function checkStudentInfo($student_code, $password)
     if ($data->num_rows > 0) {
         return $result;
     } else {
-        return 'Username or password incorrect!';
+        return false;
+    }
+}
+
+function checkTeacherInfo($user_code, $password)
+{
+    $conn = connectdb();
+    try {
+        $sql = "SELECT * FROM teacher WHERE user_name = '$user_code' AND password = '$password'";
+        $data = $conn->query($sql);
+        $result = $data->fetch_assoc();
+        $conn->close();
+    } catch (Exception $e) {
+        echo $e->getMessage();
+    }
+    if ($data->num_rows > 0) {
+        return $result;
+    } else {
+        return false;
+    }
+}
+
+function checkAdminInfo($user_code, $password)
+{
+    $conn = connectdb();
+    try {
+        $sql = "SELECT * FROM admin WHERE user_name = '$user_code' AND password = '$password'";
+        $data = $conn->query($sql);
+        $result = $data->fetch_assoc();
+        $conn->close();
+    } catch (Exception $e) {
+        echo $e->getMessage();
+    }
+    if ($data->num_rows > 0) {
+        return $result;
+    } else {
+        return false;
     }
 }
 

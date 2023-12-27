@@ -11,6 +11,17 @@ if (!empty($_POST['update'])) {
         die();
     }
 }
+if (!empty($_POST['add'])) {
+    $depart_name = $_POST['department_name'];
+    $desc = $_POST['desc'];
+    $result = addDepartment($depart_name, $desc);
+    if ($result) {
+        header('location: ./index.php?page=department-manage');
+    } else {
+        echo 'Cannot add department!';
+        die();
+    }
+}
 ?>
 
 <!-- Main -->
@@ -36,10 +47,44 @@ if (!empty($_POST['update'])) {
                                 <h2 class="cart-info__heading">Quản lý ngành học</h2>
                                 <p class="cart-info__desc profile__desc">Ngành</p>
                             </div>
-                            <a href="?page=add-department" class="btn btn--primary btn--rounded">
+                            <button class="btn btn--primary btn--rounded js-toggle" toggle-target="#add-dialog">
                                 <img src="./assets/icons/plus.svg" alt="">
                                 Thêm ngành học
-                            </a>
+                            </button>
+                            <!-- Modal: edit -->
+                            <div class="modal modal--medium hide" id="add-dialog">
+                                <div class="modal__content">
+                                    <form action="" method="post">
+                                        <div class="form__row" style="flex-direction: column; gap: 0;">
+                                            <h3 class="cart-info__heading">Thêm ngành học</h3>
+                                            <div class="form__group">
+                                                <label for="department_name" style="text-align: left" class="form__label form-card__label">
+                                                    Tên ngành
+                                                </label>
+                                                <div class="form__text-input">
+                                                    <input type="text" name="department_name" id="department_name" class="form__input" />
+                                                    <img src=" ./assets/icons/form-error.svg" alt="" class="form__input-icon-error" />
+                                                </div>
+                                            </div>
+
+                                            <div class="form__group">
+                                                <label for="desc" style="text-align: left" class="form__label form-card__label">Mô tả</label>
+                                                <div class="form__text-area">
+                                                    <textarea name="desc" id="desc" placeholder="Description" class="form__text-area-input"></textarea>
+                                                    <img src="./assets/icons/form-error.svg" alt="" class="form__input-icon-error" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="modal__bottom">
+                                            <button class="btn btn--small btn--outline btn--text modal__btn js-toggle" toggle-target="#add-dialog">
+                                                Hủy bỏ
+                                            </button>
+                                            <input type="submit" name="add" value="Thêm" class="btn btn--small btn--primary btn--no-margin modal__btn">
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="modal__overlay js-toggle" toggle-target="#add-dialog"></div>
+                            </div>
                         </div>
                         <table>
                             <thead>
@@ -73,7 +118,7 @@ if (!empty($_POST['update'])) {
                                                                     <div class="form__group">
                                                                         <input hidden type="text" name="depart_id" id="depart_id" value="<?= $id ?>">
                                                                         <label for="department_name" style="text-align: left" class="form__label form-card__label">
-                                                                            Department name
+                                                                            Tên ngành
                                                                         </label>
                                                                         <div class="form__text-input">
                                                                             <input type="text" name="department_name" id="department_name" class="form__input" value="<?= $department['department_name'] ?>" />

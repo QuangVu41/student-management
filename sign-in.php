@@ -4,15 +4,25 @@ ob_start();
 require_once './model/connect.php';
 require_once './model/function.php';
 if (isset($_POST['signin']) && $_POST['signin']) {
-    $student_code = $_POST['student_code'];
+    $user_code = $_POST['user_code'];
     $password = $_POST['password'];
-    $student = checkStudentInfo($student_code, $password);
-    if (is_array($student)) {
+    $student = checkStudentInfo($user_code, $password);
+    $role;
+    if ($student) {
         $_SESSION['student'] = [];
         $_SESSION['student'] = $student;
+        $role = $_SESSION['student']['role_id'];
         header('location: ./index.php?page=profile');
+    } else if ($teacher = checkTeacherInfo($user_code, $password)) {
+        $_SESSION['teacher'] = [];
+        $_SESSION['teacher'] = $teacher;
+        $role = $_SESSION['teacher']['role_id'];
+    } else if ($admin = checkAdminInfo($user_code, $password)) {
+        $_SESSION['admin'] = [];
+        $_SESSION['admin'] = $admin;
+        $role = $_SESSION['teacher']['role_id'];
     } else {
-        $txt_error = $student;
+        $txt_error = 'Tài khoản hoặc mật khẩu không đúng!';
     }
 }
 
@@ -24,7 +34,7 @@ if (isset($_POST['signin']) && $_POST['signin']) {
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Sign In | Grocery Mart</title>
+    <title>Sign In</title>
 
     <!-- Favicon -->
     <link rel="apple-touch-icon" sizes="76x76" href="./assets/favicon/apple-touch-icon.png" />
@@ -69,7 +79,7 @@ if (isset($_POST['signin']) && $_POST['signin']) {
                 <form action="" class="form auth__form" id="form-1" method="post">
                     <div class="form__group">
                         <div class="form__text-input">
-                            <input type="text" name="student_code" id="student_code" placeholder="Student Code" class="form__input" />
+                            <input type="text" name="user_code" id="student_code" placeholder="Mã sinh viên hoặc tên tài khoản" class="form__input" />
                             <img src="./assets/icons/message.svg" alt="" class="form__input-icon" />
                             <img src="./assets/icons/form-error.svg" alt="" class="form__input-icon-error" />
                         </div>
@@ -77,7 +87,7 @@ if (isset($_POST['signin']) && $_POST['signin']) {
                     </div>
                     <div class="form__group">
                         <div class="form__text-input">
-                            <input type="password" name="password" id="password" placeholder="Password" class="form__input" />
+                            <input type="password" name="password" id="password" placeholder="Mật khẩu" class="form__input" />
                             <img src="./assets/icons/locked.svg" alt="" class="form__input-icon" />
                             <img src="./assets/icons/form-error.svg" alt="" class="form__input-icon-error" />
                         </div>
@@ -116,7 +126,7 @@ if (isset($_POST['signin']) && $_POST['signin']) {
             formParent: '.form__group',
             errorSelector: '.form__error',
             rules: [
-                Validator.isRequired('#student_code', 'Nhập mã sinh viên của bạn'),
+                Validator.isRequired('#student_code', 'Nhập mã sinh viên hoặc tên đăng nhập của bạn'),
                 Validator.minLength('#password', 6, 'Mật khẩu tối thiểu 6 kí tự'),
             ],
         });
