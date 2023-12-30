@@ -106,7 +106,7 @@ function checkAdminInfo($user_code, $password)
 {
     $conn = connectdb();
     try {
-        $sql = "SELECT * FROM admin WHERE user_name = '$user_code' AND password = '$password'";
+        $sql = "SELECT * FROM `admin` WHERE user_name = '$user_code' AND `password` = '$password'";
         $data = $conn->query($sql);
         $result = $data->fetch_assoc();
         $conn->close();
