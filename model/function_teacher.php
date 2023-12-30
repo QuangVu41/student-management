@@ -168,4 +168,38 @@ function addStudentToClassBySubject($studentID, $classID){
         echo "Error: " . $sql3 . "<br>" . $conn->error;
     }
 }
+
+function getAllSubject(){
+    $conn = connectdb();
+    $sql = "SELECT * FROM `subject`";
+    $data = $conn->query($sql);
+    $conn->close();
+    return $data;
+}
+
+function addTeacher($teacherName, $birthday, $phonenumber, $email, $address, $userName, $password, $subject){
+    $conn = connectdb();
+    $sql1 = "INSERT INTO teacher (teacher_name, date_of_birth, phonenumber, email, `address`, user_name, `password`, role_id, subject_id) VALUES ('$teacherName', $birthday, '$phonenumber', '$email', '$address', '$userName', '$password', 2, $subject)";
+    if($conn->query($sql1) === true){
+        echo "<br> Thêm thành công <br>";
+    }else{
+        echo "Error: " . $sql1 . "<br>" . $conn->error;
+    }
+}
+function getAllTeacher(){
+    $conn = connectdb();
+    $sql = "SELECT * FROM teacher";
+    $data = $conn->query($sql);
+    $conn->close();    
+    return $data;
+}
+function deleteTeacher($teacherID){
+    $conn = connectdb();
+    $sql1 = "DELETE FROM teacher WHERE teacher_id = $teacherID";
+    if($conn->query($sql1) === true){
+        echo "<br> Xóa thành công <br>";
+    }else{
+        echo "Error: " . $sql1 . "<br>" . $conn->error;
+    }
+}
 ?>

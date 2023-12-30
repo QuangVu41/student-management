@@ -10,27 +10,27 @@
             <h3 class="profile-menu__title">Tính năng</h3>
             <ul class="profile-menu__list">
                 <li>
-                    <a href="./index.php?page=profile" class="profile-menu__link">
+                    <a href="./phamvantoan/teacher-management.php" class="profile-menu__link">
                         <span class="profile-menu__icon">
                             <img src="assets/icons/profile.svg" alt="" class="icon" />
                         </span>
-                        Thông tin cá nhân
+                        Lớp học
                     </a>
                 </li>
                 <li>
-                    <a href="?page=add-address" class="profile-menu__link">
+                    <a href="./phamvantoan/teacher-management.php" class="profile-menu__link">
                         <span class="profile-menu__icon">
                             <img src="assets/icons/address.svg" alt="" class="icon" />
                         </span>
-                        Đăng ký môn học
+                        Giáo viên
                     </a>
                 </li>
                 <li>
-                    <a href="#!" class="profile-menu__link">
+                    <a href="#" class="profile-menu__link">
                         <span class="profile-menu__icon">
                             <img src="assets/icons/message.svg" alt="" class="icon" />
                         </span>
-                        Xem học phí
+                        Môn học
                     </a>
                 </li>
             </ul>

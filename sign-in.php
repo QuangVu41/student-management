@@ -18,6 +18,7 @@ if (isset($_POST['signin']) && $_POST['signin']) {
         $_SESSION['teacher'] = $teacher;
         $_SESSION['teacher_id'] = $teacher["teacher_id"];
         $role = $_SESSION['teacher']['role_id'];
+        $_SESSION['role'] = $role;
         header('location: ./phamvantoan/teacher-index.php');
     } else if ($admin = checkAdminInfo($user_code, $password)) {
         $_SESSION['admin'] = [];
