@@ -17,7 +17,7 @@ if (isset($_POST['signin']) && $_POST['signin']) {
         $_SESSION['teacher'] = [];
         $_SESSION['teacher'] = $teacher;
         $role = $_SESSION['teacher']['role_id'];
-        header('location: ./index.php?page=profile');
+        header('location: ./index-teacher.php?page=profile-teacher');
     } else if ($admin = checkAdminInfo($user_code, $password)) {
         $_SESSION['admin'] = [];
         $_SESSION['admin'] = $admin;
