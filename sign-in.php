@@ -16,8 +16,9 @@ if (isset($_POST['signin']) && $_POST['signin']) {
     } else if ($teacher = checkTeacherInfo($user_code, $password)) {
         $_SESSION['teacher'] = [];
         $_SESSION['teacher'] = $teacher;
+        $_SESSION['teacher_id'] = $teacher["teacher_id"];
         $role = $_SESSION['teacher']['role_id'];
-        header('location: ./index.php?page=profile');
+        header('location: ./phamvantoan/teacher-index.php');
     } else if ($admin = checkAdminInfo($user_code, $password)) {
         $_SESSION['admin'] = [];
         $_SESSION['admin'] = $admin;
