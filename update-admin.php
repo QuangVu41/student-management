@@ -40,11 +40,17 @@ if ($_SESSION['admin'] && $_SESSION['admin']['role_id'] == 1) {
         document.querySelector('#check-info').onclick = checkInfo;
 
        document.querySelector('#form').onsubmit = function(){
-            alert("Chúc mừng bạn đã thay đổi thông tin thành công!");
+            alert("Chúc mừng bạn đã sửa tài khoản thành công!");
             };
 });
+    function checkPhoneNumber(phonenumber) {
+            return /^\d{10}$/.test(phonenumber);
+        }
 
-function checkInfo() {
+        function checkEmail(email) {
+            return /\S+@\S+\.\S+/.test(email);
+        }
+    function checkInfo() {
         let admin_name = document.querySelector('#admin_name').value;
         let date_of_birth = document.querySelector('#date_of_birth').value;
         let phonenumber = document.querySelector('#phonenumber').value;
@@ -55,10 +61,16 @@ function checkInfo() {
         let role_id = document.querySelector ('#role_id').value;
        
         if (admin_name === "" || date_of_birth === "" || phonenumber === "" || email === "" || address === "" || user_name === "" || password === "" || role_id === "") {
-            alert("Vui lòng điền đầy đủ thông tin!");
+            alert("Vui lòng điền đầy đủ thông tin và đồng ý lập tài khoản.");
+            if (!checkEmail(email)) {
+                    alert("Email không hợp lệ!");
+            }
+            if (!checkPhoneNumber(phonenumber)) {
+                alert("Số điện thoại không hợp lệ. Vui lòng nhập đúng 10 chữ số.");
+            }
         } else {
-            alert("Dữ liệu hợp lệ. Tiến hành submit!");
-        }
+            alert("Dữ liệu hợp lệ. Tiến hành submit.");
+        }    
     }
     </script>
     <!-- Font -->

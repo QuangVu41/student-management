@@ -61,12 +61,12 @@ if ($_SESSION['admin'] && $_SESSION['admin']['role_id'] == 1) {
        
         if (admin_name === "" || date_of_birth === "" || phonenumber === "" || email === "" || address === "" || user_name === "" || password === "" || role_id === "") {
             alert("Vui lòng điền đầy đủ thông tin và đồng ý lập tài khoản.");
-        }
-        if (!checkEmail(email)) {
-                alert("Email không hợp lệ!");
-        }
-        if (!checkPhoneNumber(phonenumber)) {
-                alert("Số điện thoại không hợp lệ!");
+            if (!checkEmail(email)) {
+                    alert("Email không hợp lệ!");
+            }
+            if (!checkPhoneNumber(phonenumber)) {
+                alert("Số điện thoại không hợp lệ. Vui lòng nhập đúng 10 chữ số.");
+            }
         } else {
             alert("Dữ liệu hợp lệ. Tiến hành submit.");
         }    
