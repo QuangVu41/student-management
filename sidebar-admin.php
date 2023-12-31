@@ -10,7 +10,7 @@
             <h3 class="profile-menu__title">Tính năng</h3>
             <ul class="profile-menu__list">
                 <li>
-                    <a href="./phamvantoan/teacher-management.php" class="profile-menu__link">
+                    <a href="./phamvantoan/class-management.php" class="profile-menu__link">
                         <span class="profile-menu__icon">
                             <img src="assets/icons/profile.svg" alt="" class="icon" />
                         </span>

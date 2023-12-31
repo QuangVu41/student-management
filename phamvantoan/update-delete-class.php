@@ -7,7 +7,7 @@ ob_start();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quản lý giáo viên</title>
+    <title>Quản lý lớp học</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="../assets/css/teacher.css">
     <!-- Font -->
@@ -20,26 +20,31 @@ ob_start();
 <?php
     require_once '../templates/header-admin.php'; 
     require '../model/function_teacher.php';
-    $teachers = getAllTeacher();
+    $class = getAllClass();
 ?>
     <div class="container">
 <?php 
-    for($i = 0; $i < $teachers->num_rows; $i++){
-        $row = $teachers->fetch_assoc();
-        $teacherName = $row["teacher_name"];
-        $teacherID = $row["teacher_id"];
+    for($i = 0; $i < $class->num_rows; $i++){
+        $row = $class->fetch_assoc();
+        $className = $row["class_name"];
+        $classID = $row["class_id"];
 ?>
         <form class="d-flex" method="post" action="" style="margin-top: 40px">
-            <input  type="text" value="<?= $teacherID?>" name="teacherID" readonly/>
-            <input  type="text" value="<?= $teacherName?>" name="teacherName" readonly/>
+            <input  type="text" value="<?= $classID?>" name="classID" readonly/>
+            <input  type="text" value="<?= $className?>" name="className" readonly/>
             <button class="btn btn-warning" type="submit" style="width: 200px">Xóa</button>
+        </form>
+        <form class="d-flex" method="post" action="class-update.php" style="margin-top: 40px">
+            <input  type="text" readonly/>
+            <input  type="text" readonly/>
+            <button class="btn btn-warning" type="submit" style="width: 200px">Cập nhật</button>
+            <input  type="hidden" value="<?= $classID?>" name="classID" readonly/>
         </form>
 <?php
     }
-    if(isset($_POST["teacherID"])){
-        $teacherID = $_POST["teacherID"];
-        $class = teacherClass($teacherID);
-        deleteTeacher($teacherID, $class["class_id"]);
+    if(isset($_POST["classID"])){
+        $classID = $_POST["classID"];
+        deleteClass($classID);
     }
 ?>
         </div>

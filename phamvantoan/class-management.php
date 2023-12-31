@@ -19,30 +19,15 @@ ob_start();
 <body>
 <?php
     require_once '../templates/header-admin.php'; 
-    require '../model/function_teacher.php';
-    $teachers = getAllTeacher();
 ?>
     <div class="container">
-<?php 
-    for($i = 0; $i < $teachers->num_rows; $i++){
-        $row = $teachers->fetch_assoc();
-        $teacherName = $row["teacher_name"];
-        $teacherID = $row["teacher_id"];
-?>
-        <form class="d-flex" method="post" action="" style="margin-top: 40px">
-            <input  type="text" value="<?= $teacherID?>" name="teacherID" readonly/>
-            <input  type="text" value="<?= $teacherName?>" name="teacherName" readonly/>
-            <button class="btn btn-warning" type="submit" style="width: 200px">Xóa</button>
+        <form class="d-flex" method="post" action="class-add.php" style="margin-top: 40px">
+            <input class="btn btn-warning" type="submit" value="Tạo lớp" name="className" style="width: 500px"/>
         </form>
-<?php
-    }
-    if(isset($_POST["teacherID"])){
-        $teacherID = $_POST["teacherID"];
-        $class = teacherClass($teacherID);
-        deleteTeacher($teacherID, $class["class_id"]);
-    }
-?>
-        </div>
+        <form class="d-flex" method="post" action="update-delete-class.php" style="margin-top: 40px">
+            <input class="btn btn-warning" type="submit" value="Quản lý lớp học" name="className" style="width: 500px"/>
+        </form>
+    </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </body>
 </html>

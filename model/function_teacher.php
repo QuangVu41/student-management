@@ -193,13 +193,61 @@ function getAllTeacher(){
     $conn->close();    
     return $data;
 }
-function deleteTeacher($teacherID){
+function deleteTeacher($teacherID, $classID){
     $conn = connectdb();
+    $sql2 = "UPDATE class SET teacher_id = NULL WHERE class_id = $classID";
+    if($conn->query($sql2) === true){
+        echo "<br> Cập nhật thành công <br>";
+    }else{
+        echo "Error: " . $sql2 . "<br>" . $conn->error;
+    }
+
     $sql1 = "DELETE FROM teacher WHERE teacher_id = $teacherID";
     if($conn->query($sql1) === true){
         echo "<br> Xóa thành công <br>";
     }else{
         echo "Error: " . $sql1 . "<br>" . $conn->error;
+    }
+}
+function addClass($className, $grade, $academicYear, $teacherID){
+    $conn = connectdb();
+    $sql1 = "INSERT INTO class (class_name, grade, academic_year,number_of_students, teacher_id) VALUES ('$className','$grade', '$academicYear',0, $teacherID)";
+    if($conn->query($sql1) === true){
+        echo "<br> Thêm thành công <br>";
+    }else{
+        echo "Error: " . $sql1 . "<br>" . $conn->error;
+    }
+}
+function getAllClass(){
+    $conn = connectdb();
+    $sql = "SELECT * FROM class";
+    $data = $conn->query($sql);
+    $conn->close();
+    return $data;
+}
+function deleteClass($classID){
+    $conn = connectdb();
+    $sql2 = "UPDATE student SET class_id = NULL WHERE class_id = $classID";
+    if($conn->query($sql2) === true){
+        echo "<br> Cập nhật thành công <br>";
+    }else{
+        echo "Error: " . $sql2 . "<br>" . $conn->error;
+    }
+
+    $sql1 = "DELETE FROM class WHERE class_id = $classID";
+    if($conn->query($sql1) === true){
+        echo "<br> Xóa thành công <br>";
+    }else{
+        echo "Error: " . $sql1 . "<br>" . $conn->error;
+    }
+}
+function updateClass($classID,$className,$grade, $academicYear, $teacherID){
+    $conn = connectdb();
+    $sql = "UPDATE class SET class_name = '$className', grade = '$grade', academic_year = '$academicYear', teacher_id = $teacherID WHERE class_id = $classID";
+    if($conn->query($sql) === true){
+        echo "<br> Cập nhật thành công <br>";
+    }else{
+        echo "Error: " . $sql . "<br>" . $conn->error;
     }
 }
 ?>
