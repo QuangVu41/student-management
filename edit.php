@@ -106,11 +106,17 @@
         } elseif ($numberOfCredits <= 0) {
             echo "Số tín chỉ không hợp lệ!<br>";
         } elseif (($subjectName != "") && ($numberOfCredits >= "")) {
-            $sql = "UPDATE subject SET subject_name = '$subjectName', number_of_credits = '$numberOfCredits' WHERE subject_id = $id";
-            if ($conn->query($sql) === TRUE) {
+            $sql1 = "UPDATE subject SET subject_name = '$subjectName', number_of_credits = '$numberOfCredits' WHERE subject_id = $id";
+            if ($conn->query($sql1) === TRUE) {
                 header("location: ./index.php?page=list-subject");
             } else {
-                echo "Error: " . $sql . "<br>" . $conn->error;
+                echo "Error: " . $sql1 . "<br>" . $conn->error;
+            }
+            $sql2 = "UPDATE register_subject SET subject_name = '$subjectName' WHERE subject_id = $id";
+            if ($conn->query($sql2) === TRUE) {
+                header("location: ./index.php?page=list-subject");
+            } else {
+                echo "Error: " . $sql2 . "<br>" . $conn->error;
             }
         }
     }
