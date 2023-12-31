@@ -49,50 +49,66 @@ require_once './model/function.php';
 
         switch ($page) {
             case 'profile':
-                if ($_SESSION['student']['major_id']) {
+                if (!empty($_SESSION['student'])) {
                     $major_id = $_SESSION['student']['major_id'];
                     $status_id = $_SESSION['student']['status_id'];
-                    $major = getStudentMajor($major_id);
-                    $status = getStudentStatus($status_id);
-                    if (is_array($major)) {
-                        $depart_id = $major['department_id'];
-                        $department = getStudentDepartment($depart_id);
-                    }
+                    $depart_id = $_SESSION['student']['department_id'];
+                    $class_id = $_SESSION['student']['class_id'];
+                    $class = !empty($class_id) ? getStudentClass($class_id) : false;
+                    $major = !empty($major_id) ? getStudentMajor($major_id) : false;
+                    $status = !empty($status_id) ? getStudentStatus($status_id) : false;
+                    $department = !empty($depart_id) ? getStudentDepartment($depart_id) : false;
+                    require_once './profile.php';
                 }
-                require_once './profile.php';
                 break;
             case 'student-manage':
-                $students = getAllStudent();
-                if (!is_array($students)) {
-                    echo $students;
-                    die();
-                }
+                $student_per_page = 5;
+                $current_page = !empty($_GET['page_num']) ? $_GET['page_num'] : 1;
+                $offset = ($current_page - 1) * $student_per_page;
+                $totalRecords = getNumRow("SELECT student_id FROM student");
+                $totalPages = ceil($totalRecords / $student_per_page);
+                $query = "SELECT * FROM student LIMIT $student_per_page OFFSET $offset";
+                $students = getAllStudent($query);
                 require_once './student-management.php';
                 break;
             case 'edit-student':
                 if (isset($_GET['id'])) {
                     $student_id = $_GET['id'];
                     $student = getStudentInfo($student_id);
-                    $major = getStudentMajor($student['major_id']);
-                    $status = getStudentStatus($student['status_id']);
+                    $depart_id = $student['department_id'];
+                    $major_id = $student['major_id'];
+                    $status_id = $student['status_id'];
+                    $class_id = $student['class_id'];
+                    $studentClass = !empty($class_id) ? getStudentClass($class_id) : false;
+                    $major = !empty($major_id) ? getStudentMajor($major_id) : false;
+                    $status = !empty($status_id) ? getStudentStatus($status_id) : false;
                     require_once './edit-student.php';
                 } else {
-                    echo 'Không tìm thấy thông tin sinh viên!';
+                    echo 'Cannot find student!';
+                    die();
                 }
                 break;
             case 'add-student':
                 $allStatus = getAllStatus();
                 $allDepartment = getAllDepartment();
+                $allClass = getAllClass();
                 include_once './add-student.php';
                 break;
             case 'update-student-major':
-                if (!empty($_GET['id']) && !empty($_GET['department_id'])) {
+                if (!empty($_GET['id'])) {
                     $student_id = $_GET['id'];
-                    $department_id = $_GET['department_id'];
-                    $majors = getAllMajor($department_id);
-                    include_once './update-student-major.php';
+                    $student = getStudentInfo($student_id);
+                    if ($student) {
+                        extract($student);
+                        $majors = getAllMajor($department_id);
+                        include_once './update-student-major.php';
+                    } else {
+                        echo "Cannot find major!";
+                        die();
+                    }
                 } else {
-                    echo "Lỗi! Không thể chọn chuyên ngành!";
+                    echo "Cannot find major!";
+                    die();
                 }
                 break;
             case 'delete-student':
@@ -107,11 +123,9 @@ require_once './model/function.php';
                 }
                 break;
             case 'department-manage':
-                $departments = getAllDepartment();
+                $query = "SELECT * FROM departments";
+                $departments = getDepartmentsByParam($query);
                 require_once './department-management.php';
-                break;
-            case 'add-department':
-                require_once './add-department.php';
                 break;
             case 'delete-department':
                 if (!empty($_GET['depart_id'])) {
@@ -128,9 +142,12 @@ require_once './model/function.php';
             case 'majors-manage':
                 if (!empty($_GET['depart_id'])) {
                     $depart_id = $_GET['depart_id'];
-                    $majors = getAllMajor($depart_id);
+                    $query = "SELECT * FROM majors WHERE department_id = $depart_id";
+                    $majors = getMajorsByParam($query);
                     $department = getDepartment($depart_id);
                     require_once 'majors-management.php';
+                } else {
+                    header('location: ./index.php');
                 }
                 break;
             case 'del-major':
@@ -146,13 +163,38 @@ require_once './model/function.php';
                     }
                 }
                 break;
+            case 'status-manage':
+                $query = "SELECT * FROM student_status";
+                $allStatus = getStatusByParam($query);
+                require_once './status-manage.php';
+                break;
+            case 'delete-status':
+                if (!empty($_GET['status_id'])) {
+                    $status_id = $_GET['status_id'];
+                    $result = deleteStatus($status_id);
+                    if ($result) {
+                        header('location: ./index.php?page=status-manage');
+                    } else {
+                        echo 'Cannot delete status!';
+                        die();
+                    }
+                }
+                break;
+            case 'list-subject':
+                require_once './list_subject.php';
+                break;
+            case 'list-registered':
+                require_once './list_registered_subject.php';
+                break;
             case 'signout':
-                unset($_SESSION['student']);
+                session_destroy();
                 header('location: ./sign-in.php');
             default:
                 require_once './home.php';
                 break;
         }
+    } else {
+        require_once './home.php';
     }
     ?>
 

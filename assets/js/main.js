@@ -6,15 +6,17 @@ window.addEventListener('DOMContentLoaded', initJsToggle);
 function initJsToggle() {
     $$('.js-toggle').forEach((button) => {
         const target = button.getAttribute('toggle-target');
-        button.onclick = (e) => {
+        button.addEventListener('click', (e) => {
             e.preventDefault();
             const isHidden = $(target).classList.contains('hide');
 
             if (isHidden) {
-                $(target).classList.toggle('show');
+                $(target).classList.remove('hide');
+                $(target).classList.add('show');
             } else {
-                $(target).classList.toggle('hide');
+                $(target).classList.remove('show');
+                $(target).classList.add('hide');
             }
-        };
+        });
     });
 }

@@ -42,7 +42,8 @@ $error-color: #ed4337;
     }
 
     &__group.invalid {
-        .form__text-input {
+        .form__text-input,
+        .form__text-area {
             border-color: $error-color;
             background: rgba($color: $error-color, $alpha: 0.1);
         }
@@ -89,6 +90,12 @@ $error-color: #ed4337;
 
         &--small {
             height: 42px;
+        }
+
+        &--xsmall {
+            height: 40px;
+            border-radius: 6px;
+            border-color: var(--primary-color);
         }
 
         @include abstracts.screen(md) {

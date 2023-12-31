@@ -58,55 +58,58 @@
             <!-- Actions -->
             <div class="top-act">
                 <?php
-                if (isset($_SESSION['student']['student_id']) && $_SESSION['student']['student_id'] != '') {
+                if (!empty($_SESSION['student']) || !empty($_SESSION['teacher']) || !empty($_SESSION['admin'])) {
                 ?>
                     <div class="top-act__user">
-                        <a href="./index.php?page=profile">
-                            <img src="<?php echo $_SESSION['student']['image'] ?>" alt="" class="top-act__avatar" />
-                        </a>
+                        <?php if ($_SESSION['role'] == 1) { ?>
+                            <a href="" style="padding: 40px 0 40px 20px;" class="user-menu_name"><?= $_SESSION['admin']['user_name'] ?></a>
+                        <?php } else { ?>
+                            <a href="./index.php?page=profile">
+                                <img src="<?php echo $_SESSION['student']['image'] ?>" alt="" class="top-act__avatar" />
+                            </a>
+                        <?php } ?>
                         <!-- Dropdown -->
                         <div class="act-dropdown top-act__dropdown">
                             <div class="act-dropdown__inner user-menu">
                                 <img src="./assets/icons/arrow-up.png" alt="" class="act-dropdown__arrow top-act__dropdown-arrow" />
 
                                 <div class="user-menu__top">
-                                    <img src="<?php echo $_SESSION['student']['image'] ?>" alt="" class="user-menu__avatar" />
-                                    <div>
-                                        <p class="user-menu__name"><?php echo $_SESSION['student']['student_name'] ?></p>
-                                        <p><?= '@' . strtolower(preg_replace('/\s+/', '', $_SESSION['student']['student_name'])) ?></p>
-                                    </div>
+                                    <?php if ($_SESSION['role'] == 1) { ?>
+                                        <div>
+                                            <p class="user-menu__name"><?php echo $_SESSION['admin']['user_name'] ?></p>
+                                            <p><?= '@' . strtolower(preg_replace('/\s+/', '', $_SESSION['admin']['user_name'])) ?></p>
+                                        </div>
+                                    <?php } else { ?>
+                                        <img src="<?php echo $_SESSION['student']['image'] ?>" alt="" class="user-menu__avatar" />
+                                        <div>
+                                            <p class="user-menu__name"><?php echo $_SESSION['student']['student_name'] ?></p>
+                                            <p><?= '@' . strtolower(preg_replace('/\s+/', '', $_SESSION['student']['student_name'])) ?></p>
+                                        </div>
+                                    <?php } ?>
                                 </div>
 
                                 <ul class="user-menu__list">
                                     <li>
                                         <a href="./index.php?page=profile" class="user-menu__link">
                                             <img src="./assets/icons/user.svg" alt="" class="icon" />
-                                            Profile</a>
-                                    </li>
-                                    <li>
-                                        <a href="./index.php?page=favourite" class="user-menu__link">
-                                            <img src="./assets/icons/favourite.svg" alt="" class="icon" />Favourite List</a>
-                                    </li>
-                                    <li>
-                                        <a href="#!" class="user-menu__link" id="switch-theme-btn">
-                                            <img src="./assets/icons/sun.svg" alt="" class="icon" />
-                                            <span>Dark mode</span>
-                                        </a>
+                                            Hồ sơ</a>
                                     </li>
                                     <li class="user-menu__separate">
-                                        <a href="#!" class="user-menu__link">
-                                            <img src="./assets/icons/settings.svg" alt="" class="icon" />Settings</a>
+                                        <button class="user-menu__link js-toggle" toggle-target="">
+                                            <img src="./assets/icons/settings.svg" alt="" class="icon" />
+                                            Đổi mật khẩu
+                                        </button>
                                     </li>
                                     <li>
                                         <a href="./index.php?page=signout" class="user-menu__link">
-                                            <img src="./assets/icons/signout.svg" alt="" class="icon" />Sign Out</a>
+                                            <img src="./assets/icons/signout.svg" alt="" class="icon" />Đăng xuất</a>
                                     </li>
                                 </ul>
                             </div>
                         </div>
                     </div>
                 <?php } else { ?>
-                    <a href="./sign-in.php" class="top-act__signup btn btn--primary">Sign In</a>
+                    <a href="./sign-in.php" class="top-act__signup btn btn--primary">Đăng nhập</a>
                 <?php } ?>
             </div>
         </div>

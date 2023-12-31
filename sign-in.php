@@ -12,15 +12,19 @@ if (isset($_POST['signin']) && $_POST['signin']) {
         $_SESSION['student'] = [];
         $_SESSION['student'] = $student;
         $role = $_SESSION['student']['role_id'];
+        $_SESSION['role'] = $role;
         header('location: ./index.php?page=profile');
     } else if ($teacher = checkTeacherInfo($user_code, $password)) {
         $_SESSION['teacher'] = [];
         $_SESSION['teacher'] = $teacher;
         $role = $_SESSION['teacher']['role_id'];
+        $_SESSION['role'] = $role;
     } else if ($admin = checkAdminInfo($user_code, $password)) {
         $_SESSION['admin'] = [];
         $_SESSION['admin'] = $admin;
-        $role = $_SESSION['teacher']['role_id'];
+        $role = $_SESSION['admin']['role_id'];
+        $_SESSION['role'] = $role;
+        header('location: ./index.php');
     } else {
         $txt_error = 'Tài khoản hoặc mật khẩu không đúng!';
     }

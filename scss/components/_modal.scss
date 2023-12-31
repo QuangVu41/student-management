@@ -13,7 +13,7 @@
     justify-content: center;
     opacity: 0;
     visibility: hidden;
-    transition: opacity, visibility, 0.2s;
+    transition: opacity, visibility, 0.3s;
 
     &.show {
         opacity: 1;
@@ -32,6 +32,13 @@
         &:hover {
             opacity: 1;
         }
+    }
+
+    &__inline {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 20px;
     }
 
     &__heading {
@@ -63,6 +70,10 @@
 
     &--small &__content {
         --content-width: 400px;
+    }
+
+    &--medium &__content {
+        --content-width: 600px;
     }
 
     &--large &__content {
@@ -107,5 +118,11 @@
         @include abstracts.screen(md) {
             flex: 1;
         }
+    }
+
+    &__img {
+        width: 150px !important;
+        height: 150px !important;
+        object-fit: cover;
     }
 }

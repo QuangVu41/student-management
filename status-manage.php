@@ -1,53 +1,42 @@
 <?php
 if (!empty($_SESSION['role']) && $_SESSION['role'] == 1) {
     if (!empty($_POST['update'])) {
-        $depart_name = $_POST['department_name'];
+        $status_name = $_POST['status_name'];
         $desc = $_POST['desc'];
-        $depart_id = $_POST['depart_id'];
-        $depart_code = $_POST['depart_code'];
-        $result = updateDepartment($depart_name, $desc, $depart_code, $depart_id);
+        $status_id = $_POST['status_id'];
+        $result = updateStatus($status_name, $desc, $status_id);
         if ($result) {
-            header('location: ./index.php?page=department-manage');
+            header('location: ./index.php?page=status-manage');
         } else {
-            echo 'Cannot modify department!';
+            echo 'Cannot modify status!';
             die();
         }
     }
-
     if (!empty($_POST['add'])) {
-        $depart_name = $_POST['department_name'];
+        $status_name = $_POST['status_name'];
         $desc = $_POST['desc'];
-        $depart_code = $_POST['depart_code'];
-        $result = addDepartment($depart_name, $desc, $depart_code);
+        $result = addStatus($status_name, $desc);
         if ($result) {
-            header('location: ./index.php?page=department-manage');
+            header('location: ./index.php?page=status-manage');
         } else {
-            echo 'Cannot add department!';
+            echo 'Cannot add status!';
             die();
         }
     }
-
     if (!empty($_POST['filter'])) {
-        $_SESSION['department-filter'] = $_POST;
+        $_SESSION['status-filter'] = $_POST;
     }
-    if (!empty($_SESSION['department-filter'])) {
+    if (!empty($_SESSION['status-filter'])) {
         $where = '';
-        foreach ($_SESSION['department-filter'] as $field => $value) {
+        foreach ($_SESSION['status-filter'] as $field => $value) {
             if (!empty($value) && $field != 'filter') {
-                switch ($field) {
-                    case 'department_code':
-                        $where .= !empty($where) ? " AND $field LIKE '%$value%'" : "$field LIKE '%$value%'";
-                        break;
-                    default:
-                        $where .= !empty($where) ?  " AND $field = '$value'" : "$field = '$value'";
-                        break;
-                }
+                $where =  "$field = '$value'";
             }
         }
-        extract($_SESSION['department-filter']);
+        extract($_SESSION['status-filter']);
         if (!empty($where)) {
-            $query = "SELECT * FROM departments WHERE $where";
-            $departments = getDepartmentsByParam($query);
+            $query = "SELECT * FROM student_status WHERE $where";
+            $allStatus = getStatusByParam($query);
         }
     }
 ?>
@@ -72,52 +61,41 @@ if (!empty($_SESSION['role']) && $_SESSION['role'] == 1) {
                         <div class="cart-info">
                             <div class="cart-info__prod">
                                 <div>
-                                    <h2 class="cart-info__heading">Quản lý ngành học</h2>
-                                    <p class="cart-info__desc profile__desc">Ngành</p>
+                                    <h2 class="cart-info__heading">Quản lý trạng thái</h2>
+                                    <p class="cart-info__desc profile__desc">Trạng thái</p>
                                 </div>
                                 <div class="cart-info__row">
                                     <button class="btn btn--primary btn--rounded js-toggle" toggle-target="#add-dialog">
                                         <img src="./assets/icons/plus.svg" alt="">
-                                        Thêm ngành học
+                                        Thêm trạng thái
                                     </button>
                                     <div class="filter-wrap">
                                         <button class="filter-btn js-toggle" toggle-target="#home-filter">
                                             Bộ lọc
                                             <img src="./assets/icons/filter.svg" alt="" class="icon filter-btn__icon" />
                                         </button>
-                                        <div id="home-filter" class="filter hide" style="left: 50%">
+                                        <div id="home-filter" class="filter hide" style="left: 60%">
                                             <img src="./assets/icons/arrow-up.png" alt="" class="filter__arrow" />
                                             <h3 class="filter__heading">Bộ lọc</h3>
                                             <form action="" class="filter__form form" style="margin-top: 0" method="post">
                                                 <div class="filter__content">
-                                                    <div class="row row-cols-2 gx-1">
+                                                    <div class="row gx-1">
                                                         <div class="col">
                                                             <div class="form__group">
-                                                                <label for="department_code" style="text-align: left" class="form__label form-card__label">
-                                                                    Mã ngành
+                                                                <label for="student_id" style="text-align: left" class="form__label form-card__label">
+                                                                    Trạng thái
                                                                 </label>
                                                                 <div class="form__text-input form__text-input--small">
-                                                                    <input type="text" name="department_code" id="department_code" class="form__input" value="<?= !empty($department_code) ? $department_code : '' ?>" placeholder="VD: dpmc" />
-                                                                    <img src=" ./assets/icons/form-error.svg" alt="" class="form__input-icon-error" />
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col">
-                                                            <div class="form__group">
-                                                                <label for="department_id" style="text-align: left" class="form__label form-card__label">
-                                                                    Tên ngành
-                                                                </label>
-                                                                <div class="form__text-input form__text-input--small">
-                                                                    <?php $allDepartment = getAllDepartment();
-                                                                    if (!empty($allDepartment)) { ?>
-                                                                        <select class="form__select form__select-lv2" name="id" id="department_id">
-                                                                            <option value="">-- Chọn ngành --</option>
-                                                                            <?php foreach ($allDepartment as $department) { ?>
-                                                                                <option value="<?= $department['id'] ?>"><?= $department['department_name'] ?></option>
+                                                                    <?php $Statuses = getAllStatus();
+                                                                    if (!empty($Statuses)) { ?>
+                                                                        <select class="form__select form__select-lv2" name="status_id" id="status_id">
+                                                                            <option value="">-- Chọn trạng thái --</option>
+                                                                            <?php foreach ($Statuses as $st) { ?>
+                                                                                <option value="<?= $st['status_id'] ?>"><?= $st['status_name'] ?></option>
                                                                             <?php } ?>
                                                                         </select>
                                                                     <?php } else { ?>
-                                                                        <a href="?page=?page=majors-manage" class="btn btn--xsmall btn--danger">Không có CN!</a>
+                                                                        <a href="?page=status-manage" class="btn btn--xsmall btn--danger">Không có trạng thái!</a>
                                                                     <?php } ?>
                                                                 </div>
                                                             </div>
@@ -134,29 +112,18 @@ if (!empty($_SESSION['role']) && $_SESSION['role'] == 1) {
                                         </div>
                                     </div>
                                 </div>
-                                <!-- Modal: add -->
+                                <!-- Modal: edit -->
                                 <div class="modal hide" id="add-dialog">
                                     <div class="modal__content">
-                                        <form action="" method="post" id="form-4">
+                                        <form action="" method="post" id="form-6">
                                             <div class="form__row" style="flex-direction: column; gap: 0;">
-                                                <h3 class="cart-info__heading">Thêm ngành học</h3>
+                                                <h3 class="cart-info__heading">Thêm trạng thái</h3>
                                                 <div class="form__group">
-                                                    <label for="department_name" style="text-align: left" class="form__label form-card__label">
-                                                        Tên ngành
+                                                    <label for="status_name" style="text-align: left" class="form__label form-card__label">
+                                                        Trạng thái
                                                     </label>
                                                     <div class="form__text-input">
-                                                        <input type="text" name="department_name" id="department_name" class="form__input" />
-                                                        <img src=" ./assets/icons/form-error.svg" alt="" class="form__input-icon-error" />
-                                                    </div>
-                                                    <p class="form__error"></p>
-                                                </div>
-
-                                                <div class="form__group">
-                                                    <label for="depart_code" style="text-align: left" class="form__label form-card__label">
-                                                        Mã ngành
-                                                    </label>
-                                                    <div class="form__text-input">
-                                                        <input type="text" name="depart_code" id="depart_code" class="form__input" placeholder="VD: dpmc001" />
+                                                        <input type="text" name="status_name" id="status_name" class="form__input" />
                                                         <img src=" ./assets/icons/form-error.svg" alt="" class="form__input-icon-error" />
                                                     </div>
                                                     <p class="form__error"></p>
@@ -186,49 +153,36 @@ if (!empty($_SESSION['role']) && $_SESSION['role'] == 1) {
                                 <thead>
                                     <tr>
                                         <th>STT</th>
-                                        <th>Mã ngành</th>
-                                        <th>Tên ngành</th>
+                                        <th>Trạng thái</th>
                                         <th>Hành động</th>
                                     </tr>
                                 </thead>
 
                                 <tbody>
                                     <?php $i = 1;
-                                    if (!empty($departments)) {
-                                        foreach ($departments as $department) {
-                                            extract($department);
-                                            $info = '?page=majors-manage&depart_id=' . $id;
-                                            $delete = '?page=delete-department&depart_id=' . $id; ?>
+                                    if (!empty($allStatus)) {
+                                        foreach ($allStatus as $status) {
+                                            extract($status);
+                                            $delete = '?page=delete-status&status_id=' . $status_id; ?>
                                             <tr>
                                                 <td><?= $i ?></td>
-                                                <td><?= $department_code ?></td>
-                                                <td><?= $department_name ?></td>
+                                                <td><?= $status_name ?></td>
                                                 <td>
                                                     <div class="action-btn">
-                                                        <button class="action-btn__link js-toggle" toggle-target="#edit-dialog-<?= $id ?>" style="--color:#5676ef;"><img src="./assets/icons/edit.svg" alt=""></button>
+                                                        <button class="action-btn__link js-toggle" toggle-target="#edit-dialog-<?= $status_id ?>" style="--color:#5676ef;"><img src="./assets/icons/edit.svg" alt=""></button>
                                                         <!-- Modal: edit -->
-                                                        <div class="modal hide" id="edit-dialog-<?= $id ?>">
+                                                        <div class="modal hide" id="edit-dialog-<?= $status_id ?>">
                                                             <div class="modal__content">
                                                                 <form action="" method="post">
                                                                     <div class="form__row" style="flex-direction: column; gap: 0;">
-                                                                        <h3 class="cart-info__heading">Sửa ngành học</h3>
+                                                                        <h3 class="cart-info__heading">Sửa Trạng thái</h3>
                                                                         <div class="form__group">
-                                                                            <input hidden type="text" name="depart_id" id="depart_id" value="<?= $id ?>">
-                                                                            <label for="department_name" style="text-align: left" class="form__label form-card__label">
-                                                                                Tên ngành
+                                                                            <input hidden type="text" name="status_id" id="status_id" value="<?= $status_id ?>">
+                                                                            <label for="status_name" style="text-align: left" class="form__label form-card__label">
+                                                                                Trạng thái
                                                                             </label>
                                                                             <div class="form__text-input">
-                                                                                <input type="text" name="department_name" id="department_name" class="form__input" value="<?= $department['department_name'] ?>" />
-                                                                                <img src=" ./assets/icons/form-error.svg" alt="" class="form__input-icon-error" />
-                                                                            </div>
-                                                                        </div>
-
-                                                                        <div class="form__group">
-                                                                            <label for="depart_code" style="text-align: left" class="form__label form-card__label">
-                                                                                Mã ngành
-                                                                            </label>
-                                                                            <div class="form__text-input">
-                                                                                <input type="text" name="depart_code" id="depart_code" class="form__input" value="<?= $department_code ?>" />
+                                                                                <input type="text" name="status_name" id="status_name" class="form__input" value="<?= $status['status_name'] ?>" />
                                                                                 <img src=" ./assets/icons/form-error.svg" alt="" class="form__input-icon-error" />
                                                                             </div>
                                                                         </div>
@@ -236,31 +190,29 @@ if (!empty($_SESSION['role']) && $_SESSION['role'] == 1) {
                                                                         <div class="form__group">
                                                                             <label for="desc" style="text-align: left" class="form__label form-card__label">Mô tả</label>
                                                                             <div class="form__text-area">
-                                                                                <textarea name="desc" id="desc" placeholder="Description" class="form__text-area-input"><?= $department['description'] ?></textarea>
+                                                                                <textarea name="desc" id="desc" placeholder="Description" class="form__text-area-input"><?= $status['description'] ?></textarea>
                                                                                 <img src="./assets/icons/form-error.svg" alt="" class="form__input-icon-error" />
                                                                             </div>
                                                                         </div>
                                                                     </div>
                                                                     <div class="modal__bottom">
-                                                                        <button class="btn btn--small btn--outline btn--text modal__btn js-toggle" toggle-target="#edit-dialog-<?= $id ?>">
+                                                                        <button class="btn btn--small btn--outline btn--text modal__btn js-toggle" toggle-target="#edit-dialog-<?= $status_id ?>">
                                                                             Hủy bỏ
                                                                         </button>
                                                                         <input type="submit" name="update" value="Cập nhật" class="btn btn--small btn--primary btn--no-margin modal__btn">
                                                                     </div>
                                                                 </form>
                                                             </div>
-                                                            <div class="modal__overlay js-toggle" toggle-target="#edit-dialog-<?= $id ?>"></div>
+                                                            <div class="modal__overlay js-toggle" toggle-target="#edit-dialog-<?= $status_id ?>"></div>
                                                         </div>
 
-                                                        <a href="<?= $info ?>" class="action-btn__link" style="--color:#ffb700;"><img src="./assets/icons/info.svg" alt=""></a>
-
-                                                        <button class="action-btn__link js-toggle" toggle-target="#del-dialog-<?= $id ?>" style="--color: #d50c0c;"><img src="./assets/icons/trash.svg" alt=""></button>
+                                                        <button class="action-btn__link js-toggle" toggle-target="#del-dialog-<?= $status_id ?>" style="--color: #d50c0c;"><img src="./assets/icons/trash.svg" alt=""></button>
                                                         <!-- Modal: delete confirm -->
-                                                        <div class="modal modal--small hide" id="del-dialog-<?= $id ?>">
+                                                        <div class="modal modal--small hide" id="del-dialog-<?= $status_id ?>">
                                                             <div class="modal__content">
-                                                                <p class="modal__text" style="white-space: initial">Bạn có chắc muốn xóa ngành <?= $department_name ?> không?</p>
+                                                                <p class="modal__text" style="white-space: initial">Bạn có chắc muốn xóa trạng thái <?= $status_name ?> không?</p>
                                                                 <div class="modal__bottom">
-                                                                    <button class="btn btn--small btn--outline btn--text modal__btn js-toggle" toggle-target="#del-dialog-<?= $id ?>">
+                                                                    <button class="btn btn--small btn--outline btn--text modal__btn js-toggle" toggle-target="#del-dialog-<?= $status_id ?>">
                                                                         Hủy bỏ
                                                                     </button>
                                                                     <a href="<?= $delete ?>" class="btn btn--danger btn--small btn--primary btn--no-margin modal__btn">
@@ -268,7 +220,7 @@ if (!empty($_SESSION['role']) && $_SESSION['role'] == 1) {
                                                                     </a>
                                                                 </div>
                                                             </div>
-                                                            <div class="modal__overlay js-toggle" toggle-target="#del-dialog-<?= $id ?>"></div>
+                                                            <div class="modal__overlay js-toggle" toggle-target="#del-dialog-<?= $status_id ?>"></div>
                                                         </div>
                                                     </div>
                                                 </td>
@@ -292,13 +244,12 @@ if (!empty($_SESSION['role']) && $_SESSION['role'] == 1) {
 
     <script>
         Validator({
-            form: '#form-4',
+            form: '#form-6',
             formParent: '.form__group',
             errorSelector: '.form__error',
             rules: [
-                Validator.isRequired('#department_name', 'Vui lòng nhập đúng tên ngành'),
-                Validator.isRequired('#depart_code', 'Nhập mã ngành'),
-                Validator.isRequired('#desc', 'Nhập mô tả của ngành'),
+                Validator.isRequired('#status_name', 'Vui lòng nhập trạng thái'),
+                Validator.isRequired('#desc', 'Nhập mô tả của trạng thái'),
             ],
         });
     </script>

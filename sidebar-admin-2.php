@@ -2,8 +2,7 @@
     <aside class="profile__sidebar">
         <!-- User -->
         <div class="profile-user">
-            <img src="<?php echo $_SESSION['student']['image'] ?>" alt="" class="profile-user__avatar" />
-            <h2 class="profile-user__name"><?php echo $_SESSION['student']['student_name'] ?></h2>
+            <h2 class="profile-user__name"><?php echo $_SESSION['admin']['user_name'] ?></h2>
         </div>
 
         <!-- Menu 1 -->
@@ -11,35 +10,35 @@
             <h3 class="profile-menu__title">Tính năng</h3>
             <ul class="profile-menu__list">
                 <li>
-                    <a href="./index.php?page=profile" class="profile-menu__link">
+                    <a href="./index.php?page=student-manage" class="profile-menu__link">
                         <span class="profile-menu__icon">
                             <img src="assets/icons/profile.svg" alt="" class="icon" />
                         </span>
-                        Thông tin cá nhân
+                        Quản lý sinh viên
+                    </a>
+                </li>
+                <li>
+                    <a href="?page=department-manage" class="profile-menu__link">
+                        <span class="profile-menu__icon">
+                            <img src="assets/icons/address.svg" alt="" class="icon" />
+                        </span>
+                        Quản lý ngành học
+                    </a>
+                </li>
+                <li>
+                    <a href="?page=status-manage" class="profile-menu__link">
+                        <span class="profile-menu__icon">
+                            <img src="assets/icons/bag.svg" alt="" class="icon" />
+                        </span>
+                        Quản lý trạng thái sinh viên
                     </a>
                 </li>
                 <li>
                     <a href="?page=list-subject" class="profile-menu__link">
                         <span class="profile-menu__icon">
-                            <img src="assets/icons/address.svg" alt="" class="icon" />
+                            <img src="assets/icons/cart.svg" alt="" class="icon" />
                         </span>
-                        Đăng ký môn học
-                    </a>
-                </li>
-                <li>
-                    <a href="?page=list-registered" class="profile-menu__link">
-                        <span class="profile-menu__icon">
-                            <img src="assets/icons/bag.svg" alt="" class="icon" />
-                        </span>
-                        Xem những môn đã đăng ký
-                    </a>
-                </li>
-                <li>
-                    <a href="#!" class="profile-menu__link">
-                        <span class="profile-menu__icon">
-                            <img src="assets/icons/message.svg" alt="" class="icon" />
-                        </span>
-                        Xem học phí
+                        Quản lý môn học
                     </a>
                 </li>
             </ul>

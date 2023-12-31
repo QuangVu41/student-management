@@ -1,0 +1,200 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background-color: #333;
+    color: white;
+    padding: 10px;
+    text-align: center;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+}
+
+nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+nav ul li {
+    display: inline;
+    margin-right: 15px;
+}
+
+#content {
+    max-width: 800px;
+    margin: 20px auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+table, th, td {
+    border: 1px solid #ddd;
+}
+
+th, td {
+    padding: 10px;
+    text-align: left;
+}
+
+th {
+    background-color: #333;
+    color: white;
+}
+
+.buttons a {
+    text-decoration: none;
+    color: white;
+    padding: 8px 16px;
+    background-color: #4CAF50;
+    border-radius: 4px;
+}
+
+.buttons a:hover {
+    background-color: #45a049;
+}
+
+.buttons a:not(:last-child) {
+    margin-right: 8px;
+}
+form {
+    max-width: 300px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    background-color: #f4f4f4; /* Màu nền của form */
+    padding: 20px; /* Đệm cho form */
+    border-radius: 8px; /* Bo tròn góc của form */
+}
+
+h2 {
+    text-align: center;
+}
+
+label {
+    margin-bottom: 4px;
+}
+
+input {
+    flex: 1;
+    padding: 8px;
+    margin-bottom: 12px;
+}
+
+.buttons {
+    display: flex;
+}
+
+button {
+    flex: 1;
+    padding: 10px; /* Kích thước của nút */
+    cursor: pointer;
+    margin-right: 4px;
+    background-color: #4CAF50; /* Màu nền của nút */
+    color: white; /* Màu chữ của nút */
+    border: none;
+    border-radius: 4px; /* Bo tròn góc của nút */
+}
+
+button:last-child {
+    margin-right: 0;
+}
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background-color: #333;
+    color: white;
+    padding: 10px;
+    text-align: center;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+}
+
+nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+nav ul li {
+    display: inline;
+    margin-right: 15px;
+}
+
+nav ul li a {
+    color: black; /* Màu chữ mặc định */
+    text-decoration: none;
+    padding: 5px;
+}
+
+nav ul li a:hover {
+    background-color: #ddd; /* Màu nền khi di chuột qua */
+}
+
+nav ul li a.active {
+    background-color: #4CAF50; /* Màu nền khi được chọn */
+    color: white; /* Màu chữ khi được chọn */
+}
+
+#content {
+    max-width: 800px;
+    margin: 20px auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+table, th, td {
+    border: 1px solid #ddd;
+}
+
+th, td {
+    padding: 10px;
+    text-align: left;
+}
+
+th {
+    background-color: #3498db;
+    color: white;
+}
+
+.buttons a {
+    text-decoration: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+}
+
+.buttons a:hover {
+    background-color: #45a049;
+}
+
+.buttons a:not(:last-child) {
+    margin-right: 8px;
+}
+
+nav a.white,
+table tbody tr:first-child a.white {
+    color: white;
+    text-decoration: none;
+}
+
