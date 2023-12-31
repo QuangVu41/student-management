@@ -17,14 +17,15 @@ if (isset($_POST['signin']) && $_POST['signin']) {
     } else if ($teacher = checkTeacherInfo($user_code, $password)) {
         $_SESSION['teacher'] = [];
         $_SESSION['teacher'] = $teacher;
+        $_SESSION['teacher_id'] = $teacher["teacher_id"];
         $role = $_SESSION['teacher']['role_id'];
         $_SESSION['role'] = $role;
+        header('location: ./phamvantoan/teacher-index.php');
     } else if ($admin = checkAdminInfo($user_code, $password)) {
         $_SESSION['admin'] = [];
         $_SESSION['admin'] = $admin;
         $role = $_SESSION['admin']['role_id'];
-        $_SESSION['role'] = $role;
-        header('location: ./index.php');
+        header('location: ./index-admin.php?page=profile-admin');
     } else {
         $txt_error = 'Tài khoản hoặc mật khẩu không đúng!';
     }

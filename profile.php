@@ -29,7 +29,7 @@
                                                 <p class="account__info">Mã SV</p>
                                             </div>
                                             <div class="col-8">
-                                                <p class="account__info"><?= $_SESSION['student']['student_id'] ?></p>
+                                                <p class="account__info"><?= $_SESSION['admin']['admin_id'] ?></p>
                                             </div>
                                         </div>
                                     </div>
