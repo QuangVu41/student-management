@@ -6,6 +6,17 @@
     <title>Tìm kiếm sinh viên</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="../assets/css/teacher.css">
+    <script>
+        document.addEventListener('DOMContentLoaded', function(){
+            document.querySelector('#submit').onclick = form;
+        });
+            function form(){
+                const sinhVienCanTim = document.querySelector('#findStudent').value;
+            if(!sinhVienCanTim){
+                alert("Bạn chưa nhập mã sinh viên!");
+            }
+    }
+    </script>
 </head>
 <body>
 <?php
@@ -17,13 +28,16 @@
 <div class="container">
     <h1 style="text-align: center">Tìm kiếm sinh viên</h1>
     <form class="d-flex" role="search" method="post" action="">
-        <input class="form-control me-2" type="search" placeholder="Mã sinh viên" aria-label="Search" name="studentID">
-        <button class="btn btn-outline-success" type="submit">Tìm kiếm</button>
+        <input class="form-control me-2" type="search" placeholder="Mã sinh viên" aria-label="Search" name="studentID" id="findStudent">
+        <button class="btn btn-outline-success" type="submit" id = "submit">Tìm kiếm</button>
     </form>
 <?php
     if(isset($_POST["studentID"])){
         $studentID = $_POST["studentID"];
-        $student = findStudent($studentID);
+        if($studentID != null){
+            $student = findStudent($studentID);
+        }
+        if(isset($student)){
         if($student != null){
             $_SESSION['studentToClass'] = $studentID;
 ?>
@@ -50,11 +64,9 @@
     }else{
         echo "<br> nhập mã sinh viên <br>";
     }
+}
 ?>
 </div>
-
-
-
 
 <?php
     }else{

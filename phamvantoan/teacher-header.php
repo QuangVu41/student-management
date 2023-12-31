@@ -25,16 +25,15 @@
 
         <?php
         session_start();
-        $_SESSION['teacher_id'] = 1;
         if(isset($_SESSION['teacher_id'])){
         ?>
-            <form class="d-flex" role="search">
+            <form class="d-flex" action="logout.php">
                 <button class="btn btn-outline-success" type="submit">Đăng xuất</button>
             </form>
         <?php
         }else{
         ?>
-            <form class="d-flex" role="search">
+            <form class="d-flex"  action="../sign-in.php">
                 <button class="btn btn-outline-success" type="submit">Đăng nhập</button>
             </form>
         <?php

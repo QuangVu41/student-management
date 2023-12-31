@@ -5,6 +5,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Đổi mật khẩu</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script>
+        document.addEventListener('DOMContentLoaded', function(){
+            document.querySelector('#check').onchange = function(){
+                if (this.checked) {
+                    document.querySelector('#submit').disabled = false;
+                } else {
+                    document.querySelector('#submit').disabled = true;
+                }
+            };
+            document.querySelector('#submit').onclick = form;
+        });
+            function form(){
+                const matKhauCu = document.querySelector('#old-password').value;
+                const matKhauMoi = document.querySelector('#new-password').value;
+                const matKhauMoiNhapLai = document.querySelector('#new-password-again').value;
+            if(!matKhauCu || !matKhauMoi || !matKhauMoiNhapLai){
+                alert("Bạn chưa nhập đủ thông tin!");
+            }
+            if(matKhauMoi != matKhauMoiNhapLai){
+                alert("Mật khẩu mới phải trùng với mật khẩu nhập lại!");
+            } 
+    }
+    </script>
 </head>
 <body>
 <?php
@@ -31,7 +54,12 @@
                 <label for="new-password-again" class="form-label">Nhập lại mật khẩu mới<span style="color: red">*</span></label>
                 <input type="text" class="form-control" id="new-password-again" name="new-password-again"  placeholder="nhập lại mật khẩu mới">
             </div>
-            <button type="submit" class="btn btn-primary">Lưu thay đổi</button>
+            <div>
+                <input class="form-check-input" type="checkbox" value="" id="check">
+                <label class="form-check-label" for="check">Xác nhận</label>
+            </div>
+            <br>
+            <button type="submit" class="btn btn-primary" id="submit" disabled>Lưu thay đổi</button>
         </div>
     </div>
     </form>
@@ -42,7 +70,7 @@
             $new_password = $_POST["new-password"];
             $new_password_again = $_POST["new-password-again"];
 
-            if($old_password == $_SESSION['teacher']['password']){
+            if($old_password == $_SESSION['teacher']['password'] && $new_password == $new_password_again){
                 updatePassword($_SESSION['teacher_id'], $new_password);
             }else{
                 echo "Nhập sai mật khẩu!";

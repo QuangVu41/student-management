@@ -25,7 +25,7 @@ function updateTeacher($teacher_id,$phone_number, $email, $address){
     if($conn->query($sql) === true){
         echo "<br> Cập nhật thành công <br>";
     }else{
-        echo "Error: " . $sql . "<br>" . $conn->error;
+        
     }
 }
 
@@ -35,7 +35,7 @@ function updatePassword($teacher_id, $new_password){
     if($conn->query($sql) === true){
         echo "<br> Cập nhật thành công <br>";
     }else{
-        echo "Error: " . $sql . "<br>" . $conn->error;
+        
     }
 }
 
@@ -71,7 +71,7 @@ function addStudentToClass($studentID, $classID){
     if($conn->query($sql1) === true){
         echo "<br> Cập nhật thành công <br>";
     }else{
-        echo "Error: " . $sql1 . "<br>" . $conn->error;
+        
     }
 
     $sql2 = "SELECT * FROM class WHERE class_id = $classID";
@@ -83,7 +83,7 @@ function addStudentToClass($studentID, $classID){
     if($conn->query($sql3) === true){
         echo "<br> Cập nhật thành công <br>";
     }else{
-        echo "Error: " . $sql3 . "<br>" . $conn->error;
+        
     }
 }
 
@@ -93,7 +93,7 @@ function deleteStudent($studentID, $classID){
     if($conn->query($sql) === true){
         echo "<br> Xóa thành công <br>";
     }else{
-        echo "Error: " . $sql . "<br>" . $conn->error;
+
     }
 
     $sql2 = "SELECT * FROM class WHERE class_id = $classID";
@@ -105,7 +105,7 @@ function deleteStudent($studentID, $classID){
     if($conn->query($sql3) === true){
         echo "<br> Cập nhật thành công <br>";
     }else{
-        echo "Error: " . $sql3 . "<br>" . $conn->error;
+        
     }
 }
 
@@ -131,7 +131,7 @@ function deleteStudentClassBySubject($studentID, $classID){
     if($conn->query($sql) === true){
         echo "<br> Xóa thành công <br>";
     }else{
-        echo "Error: " . $sql . "<br>" . $conn->error;
+        
     }
 
     $sql2 = "SELECT * FROM class_by_subject WHERE class_id = $classID";
@@ -143,7 +143,7 @@ function deleteStudentClassBySubject($studentID, $classID){
     if($conn->query($sql3) === true){
         echo "<br> Cập nhật thành công <br>";
     }else{
-        echo "Error: " . $sql3 . "<br>" . $conn->error;
+        
     }
 }
 
@@ -153,7 +153,7 @@ function addStudentToClassBySubject($studentID, $classID){
     if($conn->query($sql1) === true){
         echo "<br> Cập nhật thành công <br>";
     }else{
-        echo "Error: " . $sql1 . "<br>" . $conn->error;
+        
     }
 
     $sql2 = "SELECT * FROM class_by_subject WHERE class_id = $classID";
@@ -165,7 +165,7 @@ function addStudentToClassBySubject($studentID, $classID){
     if($conn->query($sql3) === true){
         echo "<br> Cập nhật thành công <br>";
     }else{
-        echo "Error: " . $sql3 . "<br>" . $conn->error;
+        
     }
 }
 
@@ -183,7 +183,7 @@ function addTeacher($teacherName, $birthday, $phonenumber, $email, $address, $us
     if($conn->query($sql1) === true){
         echo "<br> Thêm thành công <br>";
     }else{
-        echo "Error: " . $sql1 . "<br>" . $conn->error;
+        
     }
 }
 function getAllTeacher(){
@@ -199,14 +199,14 @@ function deleteTeacher($teacherID, $classID){
     if($conn->query($sql2) === true){
         echo "<br> Cập nhật thành công <br>";
     }else{
-        echo "Error: " . $sql2 . "<br>" . $conn->error;
+        
     }
 
     $sql1 = "DELETE FROM teacher WHERE teacher_id = $teacherID";
     if($conn->query($sql1) === true){
         echo "<br> Xóa thành công <br>";
     }else{
-        echo "Error: " . $sql1 . "<br>" . $conn->error;
+        
     }
 }
 function addClass($className, $grade, $academicYear, $teacherID){
@@ -215,7 +215,7 @@ function addClass($className, $grade, $academicYear, $teacherID){
     if($conn->query($sql1) === true){
         echo "<br> Thêm thành công <br>";
     }else{
-        echo "Error: " . $sql1 . "<br>" . $conn->error;
+        
     }
 }
 function getAllClass(){
@@ -231,14 +231,14 @@ function deleteClass($classID){
     if($conn->query($sql2) === true){
         echo "<br> Cập nhật thành công <br>";
     }else{
-        echo "Error: " . $sql2 . "<br>" . $conn->error;
+        
     }
 
     $sql1 = "DELETE FROM class WHERE class_id = $classID";
     if($conn->query($sql1) === true){
         echo "<br> Xóa thành công <br>";
     }else{
-        echo "Error: " . $sql1 . "<br>" . $conn->error;
+        
     }
 }
 function updateClass($classID,$className,$grade, $academicYear, $teacherID){
@@ -247,7 +247,7 @@ function updateClass($classID,$className,$grade, $academicYear, $teacherID){
     if($conn->query($sql) === true){
         echo "<br> Cập nhật thành công <br>";
     }else{
-        echo "Error: " . $sql . "<br>" . $conn->error;
+        
     }
 }
 ?>

@@ -16,6 +16,27 @@ ob_start();
 
     <!-- Styles -->
     <link rel="stylesheet" href="../assets/css/main.css" />
+    <script>
+        document.addEventListener('DOMContentLoaded', function(){
+            document.querySelector('#check').onchange = function(){
+                if (this.checked) {
+                    document.querySelector('#submit').disabled = false;
+                } else {
+                    document.querySelector('#submit').disabled = true;
+                }
+            };
+            document.querySelector('#submit').onclick = form1;
+        });
+        function form1(){
+                const tenLop = document.querySelector('#className').value;
+                const khoi = document.querySelector('#grade').value;
+                const nienKhoa = document.querySelector('#academicYear').value;
+                const giaoVienChuNhiem = document.querySelector('#teacherID').value;
+            if(!tenLop || !khoi || !nienKhoa || !giaoVienChuNhiem){
+                alert("Bạn chưa nhập đủ thông tin!");
+            }
+        };
+    </script>
 </head>
 <body>
 <?php
@@ -28,7 +49,7 @@ if(isset($_POST["classID"])){
 ?>
 <div class="container">
     <h1 style="text-align: center">Cập nhật lớp</h1>
-    <form method="post" action="">
+    <form method="post" id = "form" action="">
     <div class="row">
         <div class="col-sm-6">
             <div class="mb-3">
@@ -64,7 +85,12 @@ if(isset($_POST["classID"])){
             </div>
         </div>
         <div class="col-sm-6">
-            <button type="submit" class="btn btn-primary">Cập nhật</button>
+            <div>
+                <input class="form-check-input" type="checkbox" value="" id="check">
+                <label class="form-check-label" for="check">Xác nhận</label>
+            </div>
+            <br>
+            <button type="submit" id="submit" class="btn btn-primary" disabled>Cập nhật</button>
         </div>
     </div>
     </form>
@@ -77,8 +103,9 @@ if(isset($_POST["className"], $_POST["grade"], $_POST["academicYear"], $_POST["t
     $academicYear = $_POST["academicYear"];
     $teacherID = $_POST["teacherID"];
     $class_id = $_POST["class_ID"];
-    updateClass($class_id, $className, $grade, $academicYear, $teacherID);
-    $classID = $class_id;
+    if($className != null && $grade != null && $academicYear != null && $teacherID != null && $class_id != null){
+        updateClass($class_id, $className, $grade, $academicYear, $teacherID);
+    }
 }
 ?>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
