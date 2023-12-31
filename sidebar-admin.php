@@ -17,22 +17,6 @@
                         Thông tin cá nhân
                     </a>
                 </li>
-                <li>
-                    <a href="?page=add-address" class="profile-menu__link">
-                        <span class="profile-menu__icon">
-                            <img src="assets/icons/address.svg" alt="" class="icon" />
-                        </span>
-                        Đăng ký môn học
-                    </a>
-                </li>
-                <li>
-                    <a href="#!" class="profile-menu__link">
-                        <span class="profile-menu__icon">
-                            <img src="assets/icons/message.svg" alt="" class="icon" />
-                        </span>
-                        Xem học phí
-                    </a>
-                </li>
             </ul>
         </div>
 

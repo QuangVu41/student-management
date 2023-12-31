@@ -1,5 +1,3 @@
-<!-- Header -->
-<?php require_once './templates/header-admin.php'?>
 <!-- Main -->
 <main class="profile">
     <div class="container">
@@ -190,14 +188,14 @@
                                         <h2 class="cart-info__heading">Bảng role</h2>
                                         <form method = "post">
                                         <label>Role Name: </label><input type="text" name="role_name" id = "role_name" placeholder="Role Name">
-                                        <input type="submit" name = "search" value="search"/>
+                                        <input type="submit" name = "search-role" value="search"/>
                                         <a style = "padding-left: 200px;" href ='add-role.php'>Add</a>
                                     </form>      
                                 </div>
                                 <?php
                                 require_once './model/connect.php';
                                 $conn = connectdb();
-                                if(isset($_POST["search"])){
+                                if(isset($_POST["search-role"])){
                                     $role_name = $_POST['role_name'];
                                     echo '<form method="post">';
                                     mysqli_set_charset($conn, 'UTF8');

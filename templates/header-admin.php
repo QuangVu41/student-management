@@ -7,7 +7,7 @@
             </button>
 
             <!-- Logo -->
-            <a href="./" class="logo top-bar__logo">
+            <a href="./index-admin.php?page=profile-admin" class="logo top-bar__logo">
                 <img src="./assets/icons/logo.svg" alt="grocerymart" class="logo__img top-bar__logo-img main-logo" />
                 <h1 class="logo__title top-bar__logo-title">Trang Chủ</h1>
             </a>
