@@ -142,7 +142,7 @@ require_once './model/function.php';
                 }
                 break;
             case 'signout':
-                unset($_SESSION['student']);
+                session_destroy();
                 header('location: ./sign-in.php');
             default:
                 require_once './home.php';

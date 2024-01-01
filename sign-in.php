@@ -13,7 +13,7 @@ if (isset($_POST['signin']) && $_POST['signin']) {
         $_SESSION['student'] = $student;
         $role = $_SESSION['student']['role_id'];
         $_SESSION['role'] = $role;
-        header('location: ./index.php?page=profile');
+        header('location: ./index.php');
     } else if ($teacher = checkTeacherInfo($user_code, $password)) {
         $_SESSION['teacher'] = [];
         $_SESSION['teacher'] = $teacher;
