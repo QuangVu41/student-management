@@ -399,12 +399,13 @@ function updateStudentInfo($image, $name, $email, $phone, $date_of_birth, $addre
 function updateStudentMajor($student_id, $major_id)
 {
     $conn = connectdb();
-    try {
-        $sql = "UPDATE student SET major_id = $major_id WHERE student_id = $student_id";
-        $data = $conn->query($sql);
-        $conn->close();
-    } catch (Exception $e) {
-        echo $e->getMessage();
+    $sql = "UPDATE student SET major_id = $major_id WHERE student_id = $student_id";
+    $data = $conn->query($sql);
+    $conn->close();
+    if ($data) {
+        return $data;
+    } else {
+        return false;
     }
 }
 

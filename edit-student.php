@@ -50,7 +50,7 @@ if (isset($_POST['add']) && $_POST['add']) {
     if ($result) {
         header('location: ./index.php?page=edit-student&id=' . $student_id);
     } else {
-        echo 'Cannot add student major!';
+        echo 'Không thể thêm chuyên ngành hãy kiểm tra xem mã chuyên ngành có bị trùng không!';
         die();
     }
 }
@@ -196,7 +196,7 @@ if (!empty($_POST['add-status'])) {
                                                             <?php } ?>
                                                         </select>
                                                     <?php } else { ?>
-                                                        <a href="?page=#!" class="btn btn--primary btn--small">Lớp đã bị xóa nhấn vào để thêm</a>
+                                                        <a href="./phamvantoan/class-add.php" class="btn btn--primary btn--small">Lớp đã bị xóa nhấn vào để thêm</a>
                                                 <?php }
                                                 } ?>
                                             </div>
@@ -345,7 +345,7 @@ if (!empty($_POST['add-status'])) {
                     <h3 style="text-align: left; margin-bottom: 12px;" class="cart-info__heading">Thêm chuyên ngành</h3>
                 </div>
                 <div class="form__group">
-                    <label for="major_code" style="text-align: left" class="form__label form-card__label">
+                    <label for="major_name" style="text-align: left" class="form__label form-card__label">
                         Tên chuyên ngành
                     </label>
                     <div class="form__text-input">

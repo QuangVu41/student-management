@@ -62,15 +62,7 @@ require_once './model/function.php';
                 require_once './profile.php';
                 break;
             case 'profile-teacher':
-                    require_once './profile-teacher.php';
-                    break;    
-            case 'student-manage':
-                $students = getAllStudent();
-                if (!is_array($students)) {
-                    echo $students;
-                    die();
-                }
-                require_once './student-management.php';
+                require_once './profile-teacher.php';
                 break;
             case 'edit-student':
                 if (isset($_GET['id'])) {

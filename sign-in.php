@@ -25,7 +25,8 @@ if (isset($_POST['signin']) && $_POST['signin']) {
         $_SESSION['admin'] = [];
         $_SESSION['admin'] = $admin;
         $role = $_SESSION['admin']['role_id'];
-        header('location: ./index-admin.php?page=profile-admin');
+        $_SESSION['role'] = $role;
+        header('location: ./index.php?page=profile-admin');
     } else {
         $txt_error = 'Tài khoản hoặc mật khẩu không đúng!';
     }

@@ -50,16 +50,23 @@ require_once './model/function.php';
         switch ($page) {
             case 'profile':
                 if (!empty($_SESSION['student'])) {
-                    $major_id = $_SESSION['student']['major_id'];
-                    $status_id = $_SESSION['student']['status_id'];
-                    $depart_id = $_SESSION['student']['department_id'];
-                    $class_id = $_SESSION['student']['class_id'];
-                    $class = !empty($class_id) ? getStudentClass($class_id) : false;
-                    $major = !empty($major_id) ? getStudentMajor($major_id) : false;
-                    $status = !empty($status_id) ? getStudentStatus($status_id) : false;
-                    $department = !empty($depart_id) ? getStudentDepartment($depart_id) : false;
-                    require_once './profile.php';
+                    if (!empty($_SESSION['student'])) {
+                        $major_id = $_SESSION['student']['major_id'];
+                        $status_id = $_SESSION['student']['status_id'];
+                        $depart_id = $_SESSION['student']['department_id'];
+                        $class_id = $_SESSION['student']['class_id'];
+                        $class = !empty($class_id) ? getStudentClass($class_id) : false;
+                        $major = !empty($major_id) ? getStudentMajor($major_id) : false;
+                        $status = !empty($status_id) ? getStudentStatus($status_id) : false;
+                        $department = !empty($depart_id) ? getStudentDepartment($depart_id) : false;
+                        require_once './profile.php';
+                    }
+                } else {
+                    header('location: ./sign-in.php');
                 }
+                break;
+            case 'profile-admin':
+                require_once './profile-admin.php';
                 break;
             case 'student-manage':
                 $student_per_page = 5;
@@ -181,10 +188,21 @@ require_once './model/function.php';
                 }
                 break;
             case 'list-subject':
-                require_once './list_subject.php';
+                if (!empty($_SESSION['student']) || !empty($_SESSION['admin'])) {
+                    require_once './list_subject.php';
+                } else {
+                    header('location: sign-in.php');
+                }
+                break;
+            case 'edit-subject':
+                require_once './edit.php';
                 break;
             case 'list-registered':
-                require_once './list_registered_subject.php';
+                if (!empty($_SESSION['student'])) {
+                    require_once './list_registered_subject.php';
+                } else {
+                    header('location: sign-in.php');
+                }
                 break;
             case 'signout':
                 session_destroy();

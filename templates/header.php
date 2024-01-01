@@ -58,7 +58,7 @@
             <!-- Actions -->
             <div class="top-act">
                 <?php
-                if (!empty($_SESSION['student']) || !empty($_SESSION['teacher']) || !empty($_SESSION['admin'])) {
+                if (!empty($_SESSION['student']) || !empty($_SESSION['admin'])) {
                 ?>
                     <div class="top-act__user">
                         <?php if ($_SESSION['role'] == 1) { ?>
@@ -90,7 +90,7 @@
 
                                 <ul class="user-menu__list">
                                     <li>
-                                        <a href="./index.php?page=profile" class="user-menu__link">
+                                        <a href="./index.php?<?= isset($_SESSION['admin']) ? 'page=profile-admin' : 'page=profile' ?>" class="user-menu__link">
                                             <img src="./assets/icons/user.svg" alt="" class="icon" />
                                             Hồ sơ</a>
                                     </li>
