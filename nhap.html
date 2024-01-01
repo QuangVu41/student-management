@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        header {
+            background-color: #333;
+            padding: 20px;
+            text-align: center;
+            color: white;
+            width: 100%;
+        }
+
+        main {
+            display: flex;
+            flex: 1;
+        }
+
+        nav {
+            background-color: #666;
+            padding: 20px;
+            width: 200px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            position: fixed;
+            top: 80px;
+            right: 0;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 10px;
+            margin: 8px 0;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        nav a:hover {
+            background-color: #888;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Menu</h1>
+    </header>
+    <main>
+        <nav>
+            <a href="#">Danh sách môn học</a>
+            <a href="#">Đăng ký môn học</a>
+            <a href="#">Danh sách môn học đã đăng ký</a>
+            <a href="#">Xem lớp</a>
+        </nav>
+        <!-- Các phần nội dung của trang web sẽ ở đây -->
+    </main>
+</body>
+</html>

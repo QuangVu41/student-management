@@ -62,15 +62,7 @@ require_once './model/function.php';
                 require_once './profile.php';
                 break;
             case 'profile-admin':
-                    require_once './profile-admin.php';
-                    break;    
-            case 'student-manage':
-                $students = getAllStudent();
-                if (!is_array($students)) {
-                    echo $students;
-                    die();
-                }
-                require_once './student-management.php';
+                require_once './profile-admin.php';
                 break;
             case 'edit-student':
                 if (isset($_GET['id'])) {
@@ -150,7 +142,7 @@ require_once './model/function.php';
                 }
                 break;
             case 'signout':
-                unset($_SESSION['student']);
+                session_destroy();
                 header('location: ./sign-in.php');
             default:
                 require_once './home.php';

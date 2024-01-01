@@ -14,10 +14,10 @@ table {
 
     tbody {
         tr {
-            border-bottom: 1px solid #ddd;
+            border-bottom: 1px solid var(--primary-color);
 
-            &:nth-child(odd) {
-                background-color: #f3f3f3;
+            &:nth-child(even) {
+                background-color: rgb(120, 219, 231, 0.4);
             }
         }
     }
@@ -26,10 +26,11 @@ table {
     td {
         text-align: center;
         white-space: nowrap;
+        border-right: 2px solid var(--primary-color);
     }
 
     td {
-        padding: 8px 0;
+        padding: 10px 4px;
     }
 
     img {
@@ -42,13 +43,18 @@ table {
 .action-btn {
     display: flex;
     justify-content: center;
-    gap: 14px;
+    gap: 10px;
 
     &__link {
         padding: 4px;
         border-radius: 4px;
         transition: background, 0.3s;
         background: var(--color);
+
+        &--medium {
+            padding: 4px 10px;
+            color: #fff;
+        }
 
         &:hover {
             opacity: 0.8;

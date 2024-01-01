@@ -69,15 +69,11 @@ function processUploadFile($files, $targetDir)
 function checkStudentInfo($student_code, $password)
 {
     $conn = connectdb();
-    try {
-        $sql = "SELECT * FROM student WHERE student_id = '$student_code' AND password = '$password'";
-        $data = $conn->query($sql);
-        $result = $data->fetch_assoc();
-        $conn->close();
-    } catch (Exception $e) {
-        echo $e->getMessage();
-    }
-    if ($data->num_rows > 0) {
+    $sql = "SELECT * FROM student WHERE student_id = '$student_code' AND password = '$password'";
+    $data = $conn->query($sql);
+    $result = $data->fetch_assoc();
+    $conn->close();
+    if (!empty($result)) {
         return $result;
     } else {
         return false;
@@ -87,15 +83,11 @@ function checkStudentInfo($student_code, $password)
 function checkTeacherInfo($user_code, $password)
 {
     $conn = connectdb();
-    try {
-        $sql = "SELECT * FROM teacher WHERE user_name = '$user_code' AND password = '$password'";
-        $data = $conn->query($sql);
-        $result = $data->fetch_assoc();
-        $conn->close();
-    } catch (Exception $e) {
-        echo $e->getMessage();
-    }
-    if ($data->num_rows > 0) {
+    $sql = "SELECT * FROM teacher WHERE user_name = '$user_code' AND password = '$password'";
+    $data = $conn->query($sql);
+    $result = $data->fetch_assoc();
+    $conn->close();
+    if (!empty($result)) {
         return $result;
     } else {
         return false;
@@ -105,15 +97,11 @@ function checkTeacherInfo($user_code, $password)
 function checkAdminInfo($user_code, $password)
 {
     $conn = connectdb();
-    try {
-        $sql = "SELECT * FROM `admin` WHERE user_name = '$user_code' AND `password` = '$password'";
-        $data = $conn->query($sql);
-        $result = $data->fetch_assoc();
-        $conn->close();
-    } catch (Exception $e) {
-        echo $e->getMessage();
-    }
-    if ($data->num_rows > 0) {
+    $sql = "SELECT * FROM admin WHERE user_name = '$user_code' AND password = '$password'";
+    $data = $conn->query($sql);
+    $result = $data->fetch_assoc();
+    $conn->close();
+    if (!empty($result)) {
         return $result;
     } else {
         return false;
@@ -121,18 +109,14 @@ function checkAdminInfo($user_code, $password)
 }
 
 // ---------- Function add ----------
-function insertStudent($image, $name, $email, $phone, $date_of_birth, $address, $gender, $status_id)
+function insertStudent($image, $name, $email, $phone, $date_of_birth, $address, $class_id, $gender, $status_id, $department)
 {
     $conn = connectdb();
-    try {
-        $sql = "INSERT INTO student(student_name, date_of_birth, phonenumber, email, address, image, gender, status_id)
-        VALUES('$name', '$date_of_birth', '$phone', '$email', '$address', '$image', '$gender', $status_id)";
-        $data = $conn->query($sql);
-        $inserted_id = $conn->insert_id;
-        $conn->close();
-    } catch (Exception $e) {
-        echo $e->getMessage();
-    }
+    $sql = "INSERT INTO student(student_name, date_of_birth, phonenumber, email, address, class_id, image, gender, status_id, department_id)
+        VALUES('$name', '$date_of_birth', '$phone', '$email', '$address', $class_id, '$image', '$gender', $status_id, $department)";
+    $data = $conn->query($sql);
+    $inserted_id = $conn->insert_id;
+    $conn->close();
     if (!empty($inserted_id)) {
         return $inserted_id;
     } else {
@@ -140,16 +124,12 @@ function insertStudent($image, $name, $email, $phone, $date_of_birth, $address, 
     }
 }
 
-function addDepartment($department_name, $desc)
+function addDepartment($department_name, $desc, $depart_code)
 {
     $conn = connectdb();
-    try {
-        $sql = "INSERT INTO departments(department_name, description) VALUES ('$department_name', '$desc')";
-        $data = $conn->query($sql);
-        $conn->close();
-    } catch (Exception $e) {
-        echo $e->getMessage();
-    }
+    $sql = "INSERT INTO departments(department_name, description, department_code) VALUES ('$department_name', '$desc', '$depart_code')";
+    $data = $conn->query($sql);
+    $conn->close();
     if ($data) {
         return $data;
     } else {
@@ -157,16 +137,25 @@ function addDepartment($department_name, $desc)
     }
 }
 
-function addMajor($major_name, $depart_id)
+function addStatus($status_name, $desc)
 {
     $conn = connectdb();
-    try {
-        $sql = "INSERT INTO majors(major_name, department_id) VALUES ('$major_name', '$depart_id')";
-        $data = $conn->query($sql);
-        $conn->close();
-    } catch (Exception $e) {
-        echo $e->getMessage();
+    $sql = "INSERT INTO student_status(status_name, description) VALUES ('$status_name', '$desc')";
+    $data = $conn->query($sql);
+    $conn->close();
+    if ($data) {
+        return $data;
+    } else {
+        return false;
     }
+}
+
+function addMajor($major_name, $major_code, $depart_id)
+{
+    $conn = connectdb();
+    $sql = "INSERT INTO majors(major_name, department_id, major_code) VALUES ('$major_name', '$depart_id', '$major_code')";
+    $data = $conn->query($sql);
+    $conn->close();
     if ($data) {
         return $data;
     } else {
@@ -181,7 +170,11 @@ function getStudentInfo($student_id)
     $sql = "SELECT * FROM student WHERE student_id = $student_id";
     $data = $conn->query($sql);
     $result = $data->fetch_assoc();
-    return $result;
+    if (!empty($result)) {
+        return $result;
+    } else {
+        return false;
+    }
 }
 
 function getStudentDepartment($department_id)
@@ -191,7 +184,11 @@ function getStudentDepartment($department_id)
     $data = $conn->query($sql);
     $result = $data->fetch_assoc();
     $conn->close();
-    return $result;
+    if ($data->num_rows > 0) {
+        return $result;
+    } else {
+        return false;
+    }
 }
 
 function getDepartment($department_id)
@@ -201,7 +198,11 @@ function getDepartment($department_id)
     $data = $conn->query($sql);
     $result = $data->fetch_assoc();
     $conn->close();
-    return $result;
+    if ($data->num_rows > 0) {
+        return $result;
+    } else {
+        return false;
+    }
 }
 
 function getAllDepartment()
@@ -211,7 +212,24 @@ function getAllDepartment()
     $data = $conn->query($sql);
     $result = $data->fetch_all(MYSQLI_ASSOC);
     $conn->close();
-    return $result;
+    if ($data->num_rows > 0) {
+        return $result;
+    } else {
+        return false;
+    }
+}
+
+function getDepartmentsByParam($query)
+{
+    $conn = connectdb();
+    $data = $conn->query($query);
+    $result = $data->fetch_all(MYSQLI_ASSOC);
+    $conn->close();
+    if (!empty($result)) {
+        return $result;
+    } else {
+        return false;
+    }
 }
 
 function getStudentMajor($major_id)
@@ -221,7 +239,11 @@ function getStudentMajor($major_id)
     $data = $conn->query($sql);
     $result = $data->fetch_assoc();
     $conn->close();
-    return $result;
+    if ($data->num_rows > 0) {
+        return $result;
+    } else {
+        return false;
+    }
 }
 
 function getAllMajor($department_id)
@@ -230,26 +252,48 @@ function getAllMajor($department_id)
     $sql = "SELECT * FROM majors WHERE department_id = $department_id";
     $data = $conn->query($sql);
     $result = $data->fetch_all(MYSQLI_ASSOC);
-    return $result;
-}
-
-function getAllStudent()
-{
-    $conn = connectdb();
-    $sql = "SELECT * FROM student";
-    $data = $conn->query($sql);
-    try {
-        $sql = "SELECT * FROM student";
-        $data = $conn->query($sql);
-        $result = $data->fetch_all(MYSQLI_ASSOC);
-        $conn->close();
-    } catch (Exception $e) {
-        echo $e->getMessage();
-    }
     if ($data->num_rows > 0) {
         return $result;
     } else {
-        return 'Have no students in the database';
+        return false;
+    }
+}
+
+function getMajorsByParam($query)
+{
+    $conn = connectdb();
+    $data = $conn->query($query);
+    $result = $data->fetch_all(MYSQLI_ASSOC);
+    if ($data->num_rows > 0) {
+        return $result;
+    } else {
+        return false;
+    }
+}
+
+function getMajors()
+{
+    $conn = connectdb();
+    $sql = "SELECT * FROM majors";
+    $data = $conn->query($sql);
+    $result = $data->fetch_all(MYSQLI_ASSOC);
+    if ($data->num_rows > 0) {
+        return $result;
+    } else {
+        return false;
+    }
+}
+
+function getAllStudent($query)
+{
+    $conn = connectdb();
+    $data = $conn->query($query);
+    $result = $data->fetch_all(MYSQLI_ASSOC);
+    $conn->close();
+    if (!empty($result)) {
+        return $result;
+    } else {
+        return false;
     }
 }
 
@@ -260,7 +304,11 @@ function getStudentStatus($status_id)
     $data = $conn->query($sql);
     $result = $data->fetch_assoc();
     $conn->close();
-    return $result;
+    if ($data->num_rows > 0) {
+        return $result;
+    } else {
+        return false;
+    }
 }
 
 function getAllStatus()
@@ -270,40 +318,90 @@ function getAllStatus()
     $data = $conn->query($sql);
     $result = $data->fetch_all(MYSQLI_ASSOC);
     $conn->close();
-    return $result;
+    if ($data->num_rows > 0) {
+        return $result;
+    } else {
+        return false;
+    }
+}
+
+function getStatusByParam($query)
+{
+    $conn = connectdb();
+    $data = $conn->query($query);
+    $result = $data->fetch_all(MYSQLI_ASSOC);
+    $conn->close();
+    if ($data->num_rows > 0) {
+        return $result;
+    } else {
+        return false;
+    }
+}
+
+function getNumRow($sql)
+{
+    $conn = connectdb();
+    $data = $conn->query($sql);
+    if (!empty($data)) {
+        $num_row = $data->num_rows;
+        return $num_row;
+    }
+    return false;
+}
+
+function getAllClass()
+{
+    $conn = connectdb();
+    $sql = "SELECT * FROM class";
+    $data = $conn->query($sql);
+    $result = $data->fetch_all(MYSQLI_ASSOC);
+    if (!empty($result)) {
+        return $result;
+    }
+    return false;
+}
+
+function getStudentClass($class_id)
+{
+    $conn = connectdb();
+    $sql = "SELECT * FROM class WHERE class_id = $class_id";
+    $data = $conn->query($sql);
+    $result = $data->fetch_assoc();
+    $conn->close();
+    if (!empty($result)) {
+        return $result;
+    } else {
+        return false;
+    }
 }
 
 // ---------- Function update ---------- 
-function updateStudentInfo($image, $name, $email, $phone, $date_of_birth, $address, $gender, $major, $id, $status_id)
+function updateStudentInfo($image, $name, $email, $phone, $date_of_birth, $address, $class_id, $gender, $major, $id, $status_id)
 {
     $conn = connectdb();
-    try {
-        if (!empty($image)) {
-            $sql = "UPDATE student SET student_name = '$name', date_of_birth = '$date_of_birth', phonenumber = '$phone',
-            email = '$email', address = '$address', gender = '$gender', major_id = $major, image = '$image', status_id = $status_id WHERE student_id = $id";
-        } else {
-            $sql = "UPDATE student SET student_name = '$name', date_of_birth = '$date_of_birth', phonenumber = '$phone',
-         email = '$email', address = '$address', gender = '$gender', major_id = $major, status_id = $status_id WHERE student_id = $id";
-        }
-
-        $data = $conn->query($sql);
-        $conn->close();
-    } catch (Exception $e) {
-        echo $e->getMessage();
+    if (!empty($image)) {
+        $sql = "UPDATE student SET student_name = '$name', date_of_birth = '$date_of_birth', phonenumber = '$phone',
+            email = '$email', address = '$address', class_id = $class_id, gender = '$gender', major_id = $major, image = '$image', status_id = $status_id WHERE student_id = $id";
+    } else {
+        $sql = "UPDATE student SET student_name = '$name', date_of_birth = '$date_of_birth', phonenumber = '$phone',
+         email = '$email', address = '$address', class_id = $class_id, gender = '$gender', major_id = $major, status_id = $status_id WHERE student_id = $id";
     }
-    return $data;
+
+    $data = $conn->query($sql);
+    $conn->close();
+    if ($data) {
+        return $data;
+    } else {
+        return false;
+    }
 }
 
 function updateStudentMajor($student_id, $major_id)
 {
     $conn = connectdb();
-    try {
-        $sql = "UPDATE student SET major_id = $major_id WHERE student_id = $student_id";
-        $data = $conn->query($sql);
-        $conn->close();
-    } catch (Exception $e) {
-        echo $e->getMessage();
-    }
+    $sql = "UPDATE student SET major_id = $major_id WHERE student_id = $student_id";
+    $data = $conn->query($sql);
+    $conn->close();
     if ($data) {
         return $data;
     } else {
@@ -311,16 +409,12 @@ function updateStudentMajor($student_id, $major_id)
     }
 }
 
-function updateDepartment($department_name, $desc, $depart_id)
+function updateDepartment($department_name, $desc, $depart_code, $depart_id)
 {
     $conn = connectdb();
-    try {
-        $sql = "UPDATE departments SET department_name = '$department_name', description = '$desc' WHERE id = $depart_id";
-        $data = $conn->query($sql);
-        $conn->close();
-    } catch (Exception $e) {
-        echo $e->getMessage();
-    }
+    $sql = "UPDATE departments SET department_name = '$department_name', description = '$desc', department_code = '$depart_code' WHERE id = $depart_id";
+    $data = $conn->query($sql);
+    $conn->close();
     if ($data) {
         return $data;
     } else {
@@ -328,16 +422,38 @@ function updateDepartment($department_name, $desc, $depart_id)
     }
 }
 
-function updateMajor($major_name, $major_id)
+function updateMajor($major_name, $major_code, $major_id)
 {
     $conn = connectdb();
-    try {
-        $sql = "UPDATE majors SET major_name = '$major_name' WHERE id = $major_id";
-        $data = $conn->query($sql);
-        $conn->close();
-    } catch (Exception $e) {
-        echo $e->getMessage();
+    $sql = "UPDATE majors SET major_name = '$major_name', major_code = '$major_code'  WHERE id = $major_id";
+    $data = $conn->query($sql);
+    $conn->close();
+    if ($data) {
+        return $data;
+    } else {
+        return false;
     }
+}
+
+function updateStatus($status_name, $desc, $status_id)
+{
+    $conn = connectdb();
+    $sql = "UPDATE student_status SET status_name = '$status_name', description = '$desc' WHERE status_id = $status_id";
+    $data = $conn->query($sql);
+    $conn->close();
+    if ($data) {
+        return $data;
+    } else {
+        return false;
+    }
+}
+
+function updateStudentDepart($depart_id, $student_id)
+{
+    $conn = connectdb();
+    $sql = "UPDATE student SET department_id = $depart_id WHERE student_id = $student_id";
+    $data = $conn->query($sql);
+    $conn->close();
     if ($data) {
         return $data;
     } else {
@@ -349,13 +465,9 @@ function updateMajor($major_name, $major_id)
 function deleteStudent($student_id)
 {
     $conn = connectdb();
-    try {
-        $sql = "DELETE FROM student WHERE student_id = $student_id";
-        $data = $conn->query($sql);
-        $conn->close();
-    } catch (Exception $e) {
-        echo $e->getMessage();
-    }
+    $sql = "DELETE FROM student WHERE student_id = $student_id";
+    $data = $conn->query($sql);
+    $conn->close();
     if ($data) {
         return $data;
     } else {
@@ -366,13 +478,9 @@ function deleteStudent($student_id)
 function deleteDepartment($department_id)
 {
     $conn = connectdb();
-    try {
-        $sql = "DELETE FROM departments WHERE id = $department_id";
-        $data = $conn->query($sql);
-        $conn->close();
-    } catch (Exception $e) {
-        echo $e->getMessage();
-    }
+    $sql = "DELETE FROM departments WHERE id = $department_id";
+    $data = $conn->query($sql);
+    $conn->close();
     if ($data) {
         return $data;
     } else {
@@ -383,13 +491,22 @@ function deleteDepartment($department_id)
 function deleteMajor($major_id)
 {
     $conn = connectdb();
-    try {
-        $sql = "DELETE FROM majors WHERE id = $major_id";
-        $data = $conn->query($sql);
-        $conn->close();
-    } catch (Exception $e) {
-        echo $e->getMessage();
+    $sql = "DELETE FROM majors WHERE id = $major_id";
+    $data = $conn->query($sql);
+    $conn->close();
+    if ($data) {
+        return $data;
+    } else {
+        return false;
     }
+}
+
+function deleteStatus($status_id)
+{
+    $conn = connectdb();
+    $sql = "DELETE FROM student_status WHERE status_id = $status_id";
+    $data = $conn->query($sql);
+    $conn->close();
     if ($data) {
         return $data;
     } else {

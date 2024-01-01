@@ -7,7 +7,6 @@ function Validator(options) {
             element = element.parentElement;
         }
     }
-
     var selectorRules = {};
 
     // Hàm thực hiện validate
@@ -15,13 +14,20 @@ function Validator(options) {
         var errorElement = getParent(inputElement, options.formParent).querySelector(options.errorSelector);
         var errorMessage;
 
-        // lay ra cai rules cua selector
+        // lay ra cac rules cua selector
         var rules = selectorRules[rule.selector];
 
         // Lap qua tung rules va kiem tra
         // Neu co loi thi dung viec kiem tra
         for (var i = 0; i < rules.length; i++) {
-            errorMessage = rules[i](inputElement.value);
+            switch (inputElement.type) {
+                case 'checkbox':
+                case 'radio':
+                    errorMessage = rules[i](formElement.querySelector(rule.selector + ':checked'));
+                    break;
+                default:
+                    errorMessage = rules[i](inputElement.value);
+            }
             if (errorMessage) break;
         }
 
@@ -44,10 +50,10 @@ function Validator(options) {
         formElement.addEventListener('submit', function (e) {
             var isFormValid = true;
 
-            // Lap qua tung rule validate
+            // Lap qua tung rule va validate
             options.rules.forEach(function (rule) {
                 var inputElement = formElement.querySelector(rule.selector);
-                var isValid = validate(inputElement, rule);
+                var isValid = inputElement ? validate(inputElement, rule) : false;
                 if (!isValid) {
                     isFormValid = false;
                 }
@@ -69,11 +75,15 @@ function Validator(options) {
                 selectorRules[rule.selector] = [rule.test];
             }
 
-            var inputElement = formElement.querySelector(rule.selector);
+            var inputElements = formElement.querySelectorAll(rule.selector);
 
-            if (inputElement) {
+            Array.from(inputElements).forEach(function (inputElement) {
                 // Xử lý trường hợp blur khỏi input
                 inputElement.addEventListener('blur', function () {
+                    validate(inputElement, rule);
+                });
+
+                inputElement.addEventListener('change', function () {
                     validate(inputElement, rule);
                 });
 
@@ -83,7 +93,7 @@ function Validator(options) {
                     errorElement.innerText = '';
                     getParent(inputElement, options.formParent).classList.remove('invalid');
                 });
-            }
+            });
         });
     }
 }
@@ -93,7 +103,17 @@ Validator.isRequired = function (selector, message) {
     return {
         selector: selector,
         test: function (value) {
-            return value.trim() ? undefined : message || 'Vui lòng nhập trường này';
+            return value ? undefined : message || 'Vui lòng nhập trường này';
+        },
+    };
+};
+
+Validator.isPhoneNumber = function (selector, message) {
+    return {
+        selector: selector,
+        test: function (value) {
+            const regexPhoneNumber = /(84|0[3|5|7|8|9])+([0-9]{8})\b/g;
+            return regexPhoneNumber.test(value) ? undefined : message || 'Vui lòng nhập trường này';
         },
     };
 };

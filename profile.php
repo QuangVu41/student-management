@@ -29,7 +29,7 @@
                                                 <p class="account__info">Mã SV</p>
                                             </div>
                                             <div class="col-8">
-                                                <p class="account__info"><?= $_SESSION['admin']['admin_id'] ?></p>
+                                                <p class="account__info"><?= $_SESSION['student']['student_id'] ?></p>
                                             </div>
                                         </div>
                                     </div>
@@ -69,7 +69,7 @@
                                                 <p class="account__info">Trạng thái</p>
                                             </div>
                                             <div class="col-8">
-                                                <p class="account__info"><?= $status['status_name'] ?></p>
+                                                <p class="account__info" <?= !empty($status) ? '' : ' style="color: #ed4337"' ?>><?= !empty($status) ? $status['status_name'] : 'Trạng thái đã bị xóa!' ?></p>
                                             </div>
                                         </div>
                                     </div>
@@ -107,7 +107,7 @@
                                                 <p class="account__info">Tên lớp</p>
                                             </div>
                                             <div class="col-8">
-                                                <p class="account__info"><?= $_SESSION['student']['class_id'] ?></p>
+                                                <p class="account__info" <?= !empty($class) ? '' : ' style="color: #ed4337"' ?>><?= !empty($class) ?  $class['class_name'] : 'Lớp đã bị xóa!' ?></p>
                                             </div>
                                         </div>
                                     </div>
@@ -117,7 +117,7 @@
                                                 <p class="account__info">Ngành</p>
                                             </div>
                                             <div class="col-8">
-                                                <p class="account__info"><?= $department['department_name'] ?></p>
+                                                <p class="account__info" <?= !empty($department) ? '' : ' style="color: #ed4337"' ?>><?= !empty($department) ?  $department['department_name'] : 'Ngành đã bị xóa!'  ?></p>
                                             </div>
                                         </div>
                                     </div>
@@ -127,7 +127,7 @@
                                                 <p class="account__info">Chuyên Ngành</p>
                                             </div>
                                             <div class="col-8">
-                                                <p class="account__info"><?= $major['major_name'] ?></p>
+                                                <p class="account__info" <?= !empty($major) ? '' : ' style="color: #ed4337"' ?>><?= !empty($major) ? $major['major_name'] : ' Chuyên ngành đã bị xóa!' ?></p>
                                             </div>
                                         </div>
                                     </div>

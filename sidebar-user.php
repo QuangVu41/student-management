@@ -2,8 +2,12 @@
     <aside class="profile__sidebar">
         <!-- User -->
         <div class="profile-user">
-            <img src="<?php echo $_SESSION['student']['image'] ?>" alt="" class="profile-user__avatar" />
-            <h2 class="profile-user__name"><?php echo $_SESSION['student']['student_name'] ?></h2>
+            <?php if (!empty($_SESSION['student'])) { ?>
+                <img src="<?php echo $_SESSION['student']['image'] ?>" alt="" class="profile-user__avatar" />
+                <h2 class="profile-user__name"><?php echo $_SESSION['student']['student_name'] ?></h2>
+            <?php } else {
+                echo "";
+            } ?>
         </div>
 
         <!-- Menu 1 -->
@@ -19,11 +23,19 @@
                     </a>
                 </li>
                 <li>
-                    <a href="?page=add-address" class="profile-menu__link">
+                    <a href="?page=list-subject" class="profile-menu__link">
                         <span class="profile-menu__icon">
                             <img src="assets/icons/address.svg" alt="" class="icon" />
                         </span>
                         Đăng ký môn học
+                    </a>
+                </li>
+                <li>
+                    <a href="?page=list-registered" class="profile-menu__link">
+                        <span class="profile-menu__icon">
+                            <img src="assets/icons/bag.svg" alt="" class="icon" />
+                        </span>
+                        Xem những môn đã đăng ký
                     </a>
                 </li>
                 <li>
@@ -39,14 +51,14 @@
 
         <!-- Menu 3 -->
         <div class="profile-menu">
-            <h3 class="profile-menu__title">Subscriptions & plans</h3>
+            <h3 class="profile-menu__title">Đăng ký và kế hoạch</h3>
             <ul class="profile-menu__list">
                 <li>
                     <a href="#!" class="profile-menu__link">
                         <span class="profile-menu__icon">
                             <img src="assets/icons/shield.svg" alt="" class="icon" />
                         </span>
-                        Protection plans
+                        Kế hoạch bảo vệ
                     </a>
                 </li>
             </ul>
@@ -54,14 +66,14 @@
 
         <!-- Menu 4 -->
         <div class="profile-menu">
-            <h3 class="profile-menu__title">Customer Service</h3>
+            <h3 class="profile-menu__title">Dịch vụ</h3>
             <ul class="profile-menu__list">
                 <li>
                     <a href="#!" class="profile-menu__link">
                         <span class="profile-menu__icon">
                             <img src="assets/icons/info.svg" alt="" class="icon" />
                         </span>
-                        Help
+                        Hỗ trợ
                     </a>
                 </li>
                 <li>
@@ -69,7 +81,7 @@
                         <span class="profile-menu__icon">
                             <img src="assets/icons/danger.svg" alt="" class="icon" />
                         </span>
-                        Terms of Use
+                        Điều khoản sử dụng
                     </a>
                 </li>
             </ul>

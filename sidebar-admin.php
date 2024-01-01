@@ -35,7 +35,7 @@
                 </li>
             </ul>
         </div>
-
+    
         <!-- Menu 3 -->
         <div class="profile-menu">
             <h3 class="profile-menu__title">Subscriptions & plans</h3>
