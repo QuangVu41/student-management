@@ -54,21 +54,21 @@ ob_start();
                 <div class="col-sm-6">
                     <div class="mb-3">
                         <label for="className" class="form-label">Tên lớp<span style="color: red">*</span></label>
-                        <input type="text" class="form-control" id="className" name="className">
+                        <div class="form__text-input"><input type="text" id="className" name="className"></div>
                     </div>
                     <br>
                     <div class="mb-3">
                         <label for="grade" class="form-label">Khối<span style="color: red">*</span></label>
-                        <input type="text" class="form-control" id="grade" name="grade">
+                        <div class="form__text-input"><input type="text" id="grade" name="grade"></div>
                     </div>
                     <br>
                     <div class="mb-3">
                         <label for="academicYear" class="form-label">Niên khóa<span style="color: red">*</span></label>
-                        <input type="text" class="form-control" id="academicYear" name="academicYear" placeholder="2021-2025">
+                        <div class="form__text-input"><input type="text" id="academicYear" name="academicYear" placeholder="2021-2025"></div>
                     </div>
                     <div class="mb-3">
                         <label for="teacherID" class="form-label">Giáo viên chủ nhiệm<span style="color: red">*</span></label>
-                        <select name="teacherID" id="teacherID" class="form-control">
+                        <select name="teacherID" id="teacherID" class="form__select form__select-lv2 form-control">
                             <?php
                             for ($i = 0; $i < $teachers->num_rows; $i++) {
                                 $row = $teachers->fetch_assoc(); //doc du lieu tung dong
