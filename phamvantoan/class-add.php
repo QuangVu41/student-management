@@ -46,6 +46,7 @@ $teachers = getAllTeacher();
 ?>
 <div class="container">
     <h1 style="text-align: center">Tạo lớp mới</h1>
+    <br>
     <form method="post" id = "form" action="">
     <div class="row">
         <div class="col-sm-6">
