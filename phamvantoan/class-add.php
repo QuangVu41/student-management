@@ -5,6 +5,7 @@ ob_start();
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -17,8 +18,8 @@ ob_start();
     <!-- Styles -->
     <link rel="stylesheet" href="../assets/css/main.css" />
     <script>
-        document.addEventListener('DOMContentLoaded', function(){
-            document.querySelector('#check').onchange = function(){
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelector('#check').onchange = function() {
                 if (this.checked) {
                     document.querySelector('#submit').disabled = false;
                 } else {
@@ -26,18 +27,20 @@ ob_start();
                 }
             };
             document.querySelector('#submit').onclick = form;
-            function form(){
+
+            function form() {
                 const tenLop = document.querySelector('#className').value;
                 const khoi = document.querySelector('#grade').value;
                 const nienKhoa = document.querySelector('#academicYear').value;
                 const giaoVienChuNhiem = document.querySelector('#teacherID').value;
-                if(!tenLop || !khoi || !nienKhoa || !giaoVienChuNhiem){
+                if (!tenLop || !khoi || !nienKhoa || !giaoVienChuNhiem) {
                     alert("Bạn chưa nhập đủ thông tin!");
                 }
             }
         });
     </script>
 </head>
+
 <body>
 <?php
 require_once '../templates/header-admin.php'; 
@@ -89,17 +92,18 @@ $teachers = getAllTeacher();
     </form>
 </div>
 
-<?php
-if(isset($_POST["className"], $_POST["grade"], $_POST["academicYear"], $_POST["teacherID"])){
-    $className = $_POST["className"];
-    $grade = $_POST["grade"];
-    $academicYear = $_POST["academicYear"];
-    $teacherID = $_POST["teacherID"];
-    if($className != null && $grade != null && $academicYear != null && $teacherID != null){
-        addClass($className, $grade, $academicYear, $teacherID);
+    <?php
+    if (isset($_POST["className"], $_POST["grade"], $_POST["academicYear"], $_POST["teacherID"])) {
+        $className = $_POST["className"];
+        $grade = $_POST["grade"];
+        $academicYear = $_POST["academicYear"];
+        $teacherID = $_POST["teacherID"];
+        if ($className != null && $grade != null && $academicYear != null && $teacherID != null) {
+            addClass($className, $grade, $academicYear, $teacherID);
+        }
     }
-}
-?>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    ?>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </body>
+
 </html>

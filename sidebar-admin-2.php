@@ -18,7 +18,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="?page=department-manage" class="profile-menu__link">
+                    <a href="./index.php?page=department-manage" class="profile-menu__link">
                         <span class="profile-menu__icon">
                             <img src="assets/icons/address.svg" alt="" class="icon" />
                         </span>
@@ -26,7 +26,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="?page=status-manage" class="profile-menu__link">
+                    <a href="./index.php?page=status-manage" class="profile-menu__link">
                         <span class="profile-menu__icon">
                             <img src="assets/icons/bag.svg" alt="" class="icon" />
                         </span>
@@ -34,11 +34,35 @@
                     </a>
                 </li>
                 <li>
-                    <a href="?page=list-subject" class="profile-menu__link">
+                    <a href="index.php?page=list-subject" class="profile-menu__link">
                         <span class="profile-menu__icon">
                             <img src="assets/icons/cart.svg" alt="" class="icon" />
                         </span>
                         Quản lý môn học
+                    </a>
+                </li>
+                <li>
+                    <a href="./phamvantoan/class-management.php" class="profile-menu__link">
+                        <span class="profile-menu__icon">
+                            <img src="assets/icons/linkedin.svg" alt="" class="icon" />
+                        </span>
+                        Lớp học
+                    </a>
+                </li>
+                <li>
+                    <a href="./phamvantoan/teacher-management.php" class="profile-menu__link">
+                        <span class="profile-menu__icon">
+                            <img src="assets/icons/address.svg" alt="" class="icon" />
+                        </span>
+                        Giáo viên
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="profile-menu__link">
+                        <span class="profile-menu__icon">
+                            <img src="assets/icons/message.svg" alt="" class="icon" />
+                        </span>
+                        Môn học
                     </a>
                 </li>
             </ul>

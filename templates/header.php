@@ -58,7 +58,7 @@
             <!-- Actions -->
             <div class="top-act">
                 <?php
-                if (!empty($_SESSION['student']) || !empty($_SESSION['teacher']) || !empty($_SESSION['admin'])) {
+                if (!empty($_SESSION['student']) || !empty($_SESSION['admin'])) {
                 ?>
                     <div class="top-act__user">
                         <?php if ($_SESSION['role'] == 1) { ?>
@@ -90,12 +90,13 @@
 
                                 <ul class="user-menu__list">
                                     <li>
-                                        <a href="./index.php?page=profile" class="user-menu__link">
+                                        <a href="./index.php?<?= isset($_SESSION['admin']) ? 'page=profile-admin' : 'page=profile' ?>" class="user-menu__link">
                                             <img src="./assets/icons/user.svg" alt="" class="icon" />
                                             Hồ sơ</a>
                                     </li>
-                                    <li class="user-menu__separate">
-                                        <button class="user-menu__link js-toggle" toggle-target="">
+                                    <li class="user-menu__separate"></li>
+                                    <li>
+                                        <button style="width: 100%;" class="user-menu__link js-toggle" toggle-target="#password-modal">
                                             <img src="./assets/icons/settings.svg" alt="" class="icon" />
                                             Đổi mật khẩu
                                         </button>
@@ -113,5 +114,49 @@
                 <?php } ?>
             </div>
         </div>
+    </div>
+    <!-- Modal: add  -->
+    <div class="modal modal--medium hide" id="password-modal">
+        <div class="modal__content">
+            <form action="" method="post">
+                <div class="modal__inline">
+                    <h3 style="text-align: left; margin-bottom: 12px;" class="cart-info__heading">Đổi mật khẩu</h3>
+                </div>
+                <div class="form__group">
+                    <label for="old-password" style="text-align: left" class="form__label form-card__label">
+                        Mật khẩu cũ
+                    </label>
+                    <div class="form__text-input">
+                        <input type="text" name="old-password" id="old-password" class="form__input" value="" />
+                        <img src="./assets/icons/form-error.svg" alt="" class="form__input-icon-error" />
+                    </div>
+                </div>
+                <div class="form__group">
+                    <label for="new-password" style="text-align: left" class="form__label form-card__label">
+                        Mật khẩu mới
+                    </label>
+                    <div class="form__text-input">
+                        <input type="text" name="new-password" id="new-password" class="form__input" value="" />
+                        <img src=" ./assets/icons/form-error.svg" alt="" class="form__input-icon-error" />
+                    </div>
+                </div>
+                <div class="form__group">
+                    <label for="confirm-password" style="text-align: left" class="form__label form-card__label">
+                        Nhập lại mật khẩu
+                    </label>
+                    <div class="form__text-input">
+                        <input type="text" name="confirm-password" id="confirm-password" class="form__input" value="" />
+                        <img src=" ./assets/icons/form-error.svg" alt="" class="form__input-icon-error" />
+                    </div>
+                </div>
+                <div class="modal__bottom">
+                    <button class="btn btn--small btn--outline btn--text modal__btn js-toggle" toggle-target="#password-modal">
+                        Hủy bỏ
+                    </button>
+                    <input type="submit" name="change" value="Thay đổi" class="btn btn--primary btn--small btn--primary btn--no-margin modal__btn">
+                </div>
+            </form>
+        </div>
+        <div class="modal__overlay js-toggle" toggle-target="#password-modal"></div>
     </div>
 </header>

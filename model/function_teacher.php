@@ -195,11 +195,11 @@ function getAllTeacher(){
 }
 function deleteTeacher($teacherID, $classID){
     $conn = connectdb();
-    $sql2 = "UPDATE class SET teacher_id = NULL WHERE class_id = $classID";
-    if($conn->query($sql2) === true){
-        echo "<br> Cập nhật thành công <br>";
-    }else{
-        
+    if($classID != null){
+        $sql2 = "UPDATE class SET teacher_id = NULL WHERE class_id = $classID";
+        if($conn->query($sql2) === true){
+            echo "<br> Cập nhật thành công <br>";
+        }
     }
 
     $sql1 = "DELETE FROM teacher WHERE teacher_id = $teacherID";

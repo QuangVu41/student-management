@@ -222,7 +222,7 @@ ob_start();
                 echo "<td>" . $row["number_of_credits"] . "</td>";
                 if (!empty($_SESSION['admin']) && $_SESSION['admin']['role_id'] == 1) {
                     echo "<td>";
-                    echo "<a href='edit.php?id=" . $row["subject_id"] . "'>Sửa</a> | ";
+                    echo "<a href='?page=edit-subject&id=" . $row["subject_id"] . "'>Sửa</a> | ";
                     echo "<a href='delete.php?id=" . $row["subject_id"] . "'>Xóa</a>";
                     echo "</td>";
                 } else if (!empty($_SESSION['student'])) {

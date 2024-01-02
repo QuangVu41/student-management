@@ -2,8 +2,12 @@
     <aside class="profile__sidebar">
         <!-- User -->
         <div class="profile-user">
-            <img src="<?php echo $_SESSION['student']['image'] ?>" alt="" class="profile-user__avatar" />
-            <h2 class="profile-user__name"><?php echo $_SESSION['student']['student_name'] ?></h2>
+            <?php if (!empty($_SESSION['student'])) { ?>
+                <img src="<?php echo $_SESSION['student']['image'] ?>" alt="" class="profile-user__avatar" />
+                <h2 class="profile-user__name"><?php echo $_SESSION['student']['student_name'] ?></h2>
+            <?php } else {
+                echo "";
+            } ?>
         </div>
 
         <!-- Menu 1 -->
