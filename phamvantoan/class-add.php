@@ -42,55 +42,55 @@ ob_start();
 </head>
 
 <body>
-    <?php
-    require_once '../templates/header-admin.php';
-    require '../model/function_teacher.php';
-    $teachers = getAllTeacher();
-    ?>
-    <div class="container">
-        <h1 style="text-align: center">Tạo lớp mới</h1>
-        <form method="post" id="form" action="">
-            <div class="row">
-                <div class="col-sm-6">
-                    <div class="mb-3">
-                        <label for="className" class="form-label">Tên lớp<span style="color: red">*</span></label>
-                        <div class="form__text-input"><input type="text" id="className" name="className"></div>
-                    </div>
-                    <br>
-                    <div class="mb-3">
-                        <label for="grade" class="form-label">Khối<span style="color: red">*</span></label>
-                        <div class="form__text-input"><input type="text" id="grade" name="grade"></div>
-                    </div>
-                    <br>
-                    <div class="mb-3">
-                        <label for="academicYear" class="form-label">Niên khóa<span style="color: red">*</span></label>
-                        <div class="form__text-input"><input type="text" id="academicYear" name="academicYear" placeholder="2021-2025"></div>
-                    </div>
-                    <div class="mb-3">
-                        <label for="teacherID" class="form-label">Giáo viên chủ nhiệm<span style="color: red">*</span></label>
-                        <select name="teacherID" id="teacherID" class="form__select form__select-lv2 form-control">
-                            <?php
-                            for ($i = 0; $i < $teachers->num_rows; $i++) {
-                                $row = $teachers->fetch_assoc(); //doc du lieu tung dong
-                                $teacher_id = $row['teacher_id'];
-                                $teacherName = $row['teacher_name'];
-                                echo "<option value='$teacher_id'>" . $teacherName . "</option>";
-                            }
-                            echo "</select>";
-                            ?>
-                    </div>
-                </div>
-                <div class="col-sm-6">
-                    <div>
-                        <input class="form-check-input" type="checkbox" value="" id="check">
-                        <label class="form-check-label" for="check">Xác nhận</label>
-                    </div>
-                    <br>
-                    <button type="submit" id="submit" class="btn btn-primary" disabled>Tạo lớp</button>
-                </div>
+<?php
+require_once '../templates/header-admin.php'; 
+require '../model/function_teacher.php';
+$teachers = getAllTeacher();
+?>
+<div class="container">
+    <h1 style="text-align: center">Tạo lớp mới</h1>
+    <form method="post" id = "form" action="">
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="mb-3">
+                <label for="className" class="form-label">Tên lớp<span style="color: red">*</span></label>
+                <input type="text" class="form-control" id="className" name="className">
             </div>
-        </form>
+            <br>
+            <div class="mb-3">
+                <label for="grade" class="form-label">Khối<span style="color: red">*</span></label>
+                <input type="text" class="form-control" id="grade" name="grade" >
+            </div>
+            <br>
+            <div class="mb-3">
+                <label for="academicYear" class="form-label">Niên khóa<span style="color: red">*</span></label>
+                <input type="text" class="form-control" id="academicYear" name="academicYear" placeholder="2021-2025">
+            </div>
+            <div class="mb-3">
+                <label for="teacherID" class="form-label">Giáo viên chủ nhiệm<span style="color: red">*</span></label>
+                <select name="teacherID" id="teacherID" class="form-control">
+        <?php
+                for($i = 0; $i < $teachers->num_rows; $i++){ 
+                    $row = $teachers->fetch_assoc(); //doc du lieu tung dong
+                    $teacher_id = $row['teacher_id'];
+                    $teacherName = $row['teacher_name'];
+                    echo "<option value='$teacher_id'>" . $teacherName ."</option>";
+                }  
+            echo"</select>";
+   ?>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div>
+                <input class="form-check-input" type="checkbox" value="" id="check">
+                <label class="form-check-label" for="check">Xác nhận</label>
+            </div>
+            <br>
+            <button type="submit" id="submit" class="btn btn-primary" disabled>Tạo lớp</button>
+        </div>
     </div>
+    </form>
+</div>
 
     <?php
     if (isset($_POST["className"], $_POST["grade"], $_POST["academicYear"], $_POST["teacherID"])) {

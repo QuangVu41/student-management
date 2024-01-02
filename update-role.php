@@ -37,7 +37,7 @@ session_start();
         document.querySelector('#check-info').onclick = checkInfo;
 
        document.querySelector('#form').onsubmit = function(){
-            alert("Chúc mừng bạn đã thêm role thành công!");
+            alert("Chúc mừng bạn đã sửa role thành công!");
             };
 });
 
@@ -74,6 +74,7 @@ function checkInfo() {
                 ?>
             </select><br/>
             <label style = "font-size: 17px;">Role Name: </label><input type="text" name="role_name" id = "role_name" placeholder="Role Name" class="form-control w-25" style = "height: 35px;"><br/>
+            <input type="checkbox" id = "check"> Bạn đồng ý lập tài khoản?<br/>
             <button type="button" id="check-info" style = "height: 35px;">Check</button>
             <input type="submit" id = "submit" class = "btn btn-success" name = "update" value="Update"/>
         </form>

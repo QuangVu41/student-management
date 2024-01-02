@@ -25,7 +25,7 @@
     if(isset($_SESSION['teacher_id'])){
         if(isset($_SESSION["controller"])){
 ?>
-<div class="container">
+<div class="container" style="margin-bottom: 500px">
     <h1 style="text-align: center">Tìm kiếm sinh viên</h1>
     <form class="d-flex" role="search" method="post" action="">
         <input class="form-control me-2" type="search" placeholder="Mã sinh viên" aria-label="Search" name="studentID" id="findStudent">
@@ -74,6 +74,7 @@
         <p>Vui lòng đăng nhập trước!</p>
 <?php
     }
+    require 'teacher-footer.php';
 ?>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </body>

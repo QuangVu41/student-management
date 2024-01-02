@@ -179,7 +179,8 @@ function getAllSubject(){
 
 function addTeacher($teacherName, $birthday, $phonenumber, $email, $address, $userName, $password, $subject){
     $conn = connectdb();
-    $sql1 = "INSERT INTO teacher (teacher_name, date_of_birth, phonenumber, email, `address`, user_name, `password`, role_id, subject_id) VALUES ('$teacherName', $birthday, '$phonenumber', '$email', '$address', '$userName', '$password', 2, $subject)";
+    $birthday1 = date('Y-m-d', strtotime($birthday));
+    $sql1 = "INSERT INTO teacher (teacher_name, date_of_birth, phonenumber, email, `address`, user_name, `password`, role_id, subject_id) VALUES ('$teacherName', $birthday1, '$phonenumber', '$email', '$address', '$userName', '$password', 2, $subject)";
     if($conn->query($sql1) === true){
         echo "<br> Thêm thành công <br>";
     }else{
@@ -195,11 +196,11 @@ function getAllTeacher(){
 }
 function deleteTeacher($teacherID, $classID){
     $conn = connectdb();
-    $sql2 = "UPDATE class SET teacher_id = NULL WHERE class_id = $classID";
-    if($conn->query($sql2) === true){
-        echo "<br> Cập nhật thành công <br>";
-    }else{
-        
+    if($classID != null){
+        $sql2 = "UPDATE class SET teacher_id = NULL WHERE class_id = $classID";
+        if($conn->query($sql2) === true){
+            echo "<br> Cập nhật thành công <br>";
+        }
     }
 
     $sql1 = "DELETE FROM teacher WHERE teacher_id = $teacherID";
@@ -246,6 +247,36 @@ function updateClass($classID,$className,$grade, $academicYear, $teacherID){
     $sql = "UPDATE class SET class_name = '$className', grade = '$grade', academic_year = '$academicYear', teacher_id = $teacherID WHERE class_id = $classID";
     if($conn->query($sql) === true){
         echo "<br> Cập nhật thành công <br>";
+    }else{
+        
+    }
+}
+function getEvaluation($studentID){
+    $conn = connectdb();
+    $sql = "SELECT * FROM evaluation WHERE student_id = $studentID";
+    $data = $conn->query($sql);
+    $conn->close();
+    return $data;
+}
+
+function deleteEvaluation($evaluationID){
+    $conn = connectdb();
+    $sql1 = "DELETE FROM evaluation WHERE evaluation_id = $evaluationID";
+    if($conn->query($sql1) === true){
+        echo "<br> Xóa thành công <br>";
+    }else{
+        
+    }
+}
+function addEvaluation($type, $reason, $studentID){
+    $conn = connectdb();
+    $currentTime = time(); // Lấy thời gian hiện tại (timestamp)
+
+    // Định dạng thời gian theo "năm - tháng - ngày"
+    $formattedTime = date('Y-m-d', $currentTime);
+    $sql1 = "INSERT INTO evaluation (reason, `date`, type_evaluation, student_id) VALUES ('$reason',$formattedTime, $type, $studentID)";
+    if($conn->query($sql1) === true){
+        echo "<br> Thêm thành công <br>";
     }else{
         
     }

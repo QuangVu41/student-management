@@ -40,7 +40,6 @@
             <table class="table">
                 <thead>
                     <tr>
-                        <th>Select</th>
                         <th scope="col">Mã sinh viên</th>
                         <th scope="col">Tên sinh viên</th>
                         <th scope="col">Ngày sinh</th>
@@ -67,6 +66,7 @@
 ?>
                         <td><button class="btn btn-warning" type="submit" name="delete">xóa</button></td>
                         <input type="hidden" value="<?= $studentID ?>" name="studentID"/>
+                        <td><a class="btn btn-primary" href="teacher-add-evaluation.php?student_id=<?=$studentID?>">Xem đánh giá</a></td>
                     </tr>
 <?php               
             }
@@ -104,6 +104,7 @@
         <p>Vui lòng đăng nhập trước</p>
 <?php
     }
+    require 'teacher-footer.php';
 ?>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </body>
