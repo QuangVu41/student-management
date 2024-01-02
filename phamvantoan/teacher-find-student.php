@@ -25,7 +25,7 @@
     if(isset($_SESSION['teacher_id'])){
         if(isset($_SESSION["controller"])){
 ?>
-<div class="container">
+<div class="container" style="margin-bottom: 500px">
     <h1 style="text-align: center">Tìm kiếm sinh viên</h1>
     <form class="d-flex" role="search" method="post" action="">
         <input class="form-control me-2" type="search" placeholder="Mã sinh viên" aria-label="Search" name="studentID" id="findStudent">

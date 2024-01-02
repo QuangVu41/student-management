@@ -12,6 +12,13 @@
     </style>
 </head>
 <body>
-    
+<?php
+$currentTime = time(); // Lấy thời gian hiện tại (timestamp)
+
+// Định dạng thời gian theo "năm - tháng - ngày"
+$formattedTime = date('Y-m-d', $currentTime);
+
+echo "Thời gian hiện tại là: " . $formattedTime;
+?>
 </body>
 </html>
