@@ -409,6 +409,19 @@ function updateStudentMajor($student_id, $major_id)
     }
 }
 
+function changeStudentPassword($student_id, $new_pw)
+{
+    $conn = connectdb();
+    $sql = "UPDATE student SET password = $new_pw WHERE student_id = $student_id";
+    $data = $conn->query($sql);
+    $conn->close();
+    if ($data) {
+        return $data;
+    } else {
+        return false;
+    }
+}
+
 function updateDepartment($department_name, $desc, $depart_code, $depart_id)
 {
     $conn = connectdb();

@@ -36,6 +36,7 @@ require_once './model/function.php';
     <link rel="stylesheet" href="./assets/css/main.css" />
 
     <script src="./assets/js/main.js"></script>
+    <script src="./assets/js/validator.js"></script>
 </head>
 
 <body>
@@ -186,6 +187,9 @@ require_once './model/function.php';
                         die();
                     }
                 }
+                break;
+            case 'change-password':
+                require_once './change-password.php';
                 break;
             case 'list-subject':
                 if (!empty($_SESSION['student']) || !empty($_SESSION['admin'])) {
